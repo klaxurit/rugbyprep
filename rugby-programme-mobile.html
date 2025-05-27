@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Rugby Training Pro 🏉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .phase-selector {
+            display: flex;
+            gap: 10px;
+            margin: 15px;
+            overflow-x: auto;
+            padding: 5px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .phase-btn {
+            flex: 0 0 auto;
+            padding: 12px 20px;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 25px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .phase-btn.active {
+            background: linear-gradient(135deg, #ff4757, #c44569);
+            border-color: #ff4757;
+            transform: scale(1.05);
+        }
+        
+        .content {
+            padding: 15px;
+            display: none;
+        }
+        
+        .content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .week-container {
+            background: #1a1a1a;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .week-header {
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
+            padding: 15px;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .week-header::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+        }
+        
+        .week-header.active::after {
+            transform: rotate(180deg);
+        }
+        
+        .week-content {
+            display: none;
+            padding: 15px;
+        }
+        
+        .week-content.active {
+            display: block;
+        }
+        
+        .day-card {
+            background: linear-gradient(135deg, #2d3436 0%, #1a1a1a 100%);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+        
+        .day-card h3 {
+            color: #ff4757;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        
+        .exercise-item {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 3px solid #ff4757;
+        }
+        
+        .exercise-item h4 {
+            color: #ffc312;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .exercise-details {
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+        
+        .timer-section {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px;
+            text-align: center;
+        }
+        
+        .timer {
+            font-size: 48px;
+            font-weight: 800;
+            color: #ff4757;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #ff4757, #c44569);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a1a;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.3);
+        }
+        
+        .nav-item {
+            text-align: center;
+            padding: 5px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active {
+            color: #ff4757;
+        }
+        
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 3px;
+        }
+        
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .nutrition-card {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px;
+            color: white;
+        }
+        
+        .nutrition-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .macro-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .macro-item {
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .macro-value {
+            font-size: 20px;
+            font-weight: 800;
+        }
+        
+        .macro-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .progress-section {
+            padding: 20px;
+        }
+        
+        .progress-card {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            background: #333;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4757, #ffc312);
+            transition: width 0.3s ease;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ff4757;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+        
+        .quick-access {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #ff4757;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(255,71,87,0.4);
+            cursor: pointer;
+            z-index: 99;
+        }
+        
+        .quick-access:active {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏉 Rugby Training Pro</h1>
+        <div style="font-size: 14px; opacity: 0.9;">Programme Intersaison Complet</div>
+    </div>
+
+    <div class="phase-selector">
+        <button class="phase-btn active" onclick="showPhase('phase1')">Phase 1<br><small>Sem 1-3</small></button>
+        <button class="phase-btn" onclick="showPhase('phase2')">Phase 2<br><small>Sem 4-6</small></button>
+        <button class="phase-btn" onclick="showPhase('phase3')">Phase 3<br><small>Sem 7-8</small></button>
+        <button class="phase-btn" onclick="showPhase('nutrition')">Nutrition</button>
+        <button class="phase-btn" onclick="showPhase('progress')">Progrès</button>
+    </div>
+
+    <!-- PHASE 1 -->
+    <div id="phase1" class="content active">
+        <h2 style="text-align: center; margin: 20px 0; color: #ff4757;">FONDATIONS EXPLOSIVES</h2>
+        
+        <div class="week-container">
+            <div class="week-header" onclick="toggleWeek('week1')">
+                Semaine 1 : Éveil Neuromusculaire
+            </div>
+            <div id="week1" class="week-content">
+                <div class="day-card">
+                    <h3>LUNDI - Puissance Lower Body</h3>
+                    <div class="exercise-item">
+                        <h4>Échauffement (15 min)</h4>
+                        <div class="exercise-details">
+                            • Mobilité hanches/chevilles<br>
+                            • Activation glutes<br>
+                            • Bear crawl + Spider walk
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Box Jump progressifs</h4>
+                        <div class="exercise-details">5x3 reps - Hauteur croissante</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Squat avec bande</h4>
+                        <div class="exercise-details">4x6 @70% - Explosif en montée</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Bulgarian Split Squat sautés</h4>
+                        <div class="exercise-details">3x5/jambe</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Finisher "Ruck & Roll"</h4>
+                        <div class="exercise-details">
+                            10 burpees → 20m sprint → 10 squats jump → 20m bear crawl<br>
+                            4 tours, repos 90s
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>MARDI - Conditionnement Mental</h3>
+                    <div class="exercise-item">
+                        <h4>Matin : Yoga + Méditation</h4>
+                        <div class="exercise-details">30 min yoga dynamique + 10 min méditation</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Après-midi : "Warrior Mindset"</h4>
+                        <div class="exercise-details">
+                            • 5x500m rameur @85%<br>
+                            • Entre chaque : 10 pompes + planche 30s<br>
+                            • Finir par 10 min visualisation
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>MERCREDI - Upper Body Domination</h3>
+                    <div class="exercise-item">
+                        <h4>Développé couché avec chaînes</h4>
+                        <div class="exercise-details">5x5 @75%</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Tractions lestées</h4>
+                        <div class="exercise-details">4x6</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Push Press</h4>
+                        <div class="exercise-details">4x4 @80%</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Circuit Core Anti-Rotation</h4>
+                        <div class="exercise-details">
+                            • Pallof press : 3x12/côté<br>
+                            • Dead bugs : 3x10<br>
+                            • Bird dogs : 3x10/côté
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>JEUDI - Récupération Active</h3>
+                    <div class="exercise-item">
+                        <h4>Programme Récup</h4>
+                        <div class="exercise-details">
+                            • Piscine : 30 min nage libre<br>
+                            • Sauna/Bain froid<br>
+                            • Proprioception : 15 min
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>VENDREDI - Skills & Puissance</h3>
+                    <div class="exercise-item">
+                        <h4>Matinée : Technique</h4>
+                        <div class="exercise-details">
+                            • 200 passes murales<br>
+                            • Footwork ladder drills<br>
+                            • Catches hautes
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Power Clean</h4>
+                        <div class="exercise-details">6x3 @75%</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Sled Push/Pull</h4>
+                        <div class="exercise-details">6x20m - Charge lourde</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Battle Ropes</h4>
+                        <div class="exercise-details">6x20s all-out</div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>SAMEDI - Challenge Day</h3>
+                    <div class="exercise-item">
+                        <h4>"The Rugby Warrior Test"</h4>
+                        <div class="exercise-details">
+                            • 1000m rameur<br>
+                            • 50 burpees<br>
+                            • 100 squats<br>
+                            • 50 box jumps<br>
+                            • 1000m rameur<br>
+                            <strong>Objectif : < 25 min</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="week-container">
+            <div class="week-header" onclick="toggleWeek('week2')">
+                Semaine 2-3 : Intensification
+            </div>
+            <div id="week2" class="week-content">
+                <div class="day-card">
+                    <h3>Nouveautés Semaine 2</h3>
+                    <div class="exercise-item">
+                        <h4>Complexes Olympiques</h4>
+                        <div class="exercise-details">Clean + Front Squat + Push Press</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Sprints en côte</h4>
+                        <div class="exercise-details">6x40m - Récup complète</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Exercices de lutte</h4>
+                        <div class="exercise-details">Grappling 3x2 min</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>Nouveautés Semaine 3</h3>
+                    <div class="exercise-item">
+                        <h4>Plyométrie avancée</h4>
+                        <div class="exercise-details">Depth jumps depuis 60cm</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Circuits position-spécifiques</h4>
+                        <div class="exercise-details">Adapté à ton poste</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Simulation phases de jeu</h4>
+                        <div class="exercise-details">Enchaînements rugby 4x5 min</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div id="phase2" class="content">
+        <h2 style="text-align: center; margin: 20px 0; color: #ff4757;">TRANSFORMATION ATHLÉTIQUE</h2>
+        
+        <div class="week-container">
+            <div class="week-header" onclick="toggleWeek('week4')">
+                Semaine 4-6 : Integration Game-Speed
+            </div>
+            <div id="week4" class="week-content">
+                <div class="day-card">
+                    <h3>Format Bloc Principal (3x/semaine)</h3>
+                    <div class="exercise-item">
+                        <h4>A. Activation Explosive (10 min)</h4>
+                        <div class="exercise-details">
+                            • Medecine ball slams<br>
+                            • Lateral bounds<br>
+                            • Reactive agility
+                
