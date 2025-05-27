@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ff4757">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlJ1Z2J5IFRyYWluaW5nIFBybyIsCiAgInNob3J0X25hbWUiOiAiUnVnYnkgUHJvIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYTBhMGEiLAogICJ0aGVtZV9jb2xvciI6ICIjZmY0NzU3IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRJNElpQm9aV2xuYUhROUlqRXlPQ0lpSUhabGNuTnBiMjQ5SWpFdU1TSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklpQjRiV3h1Y3pwNGJHbHVhejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TVRrNU9TOWJiR2x1YXlJK1BHSmhZMnRuY205MWJtUStQSEpsWTNRZ2QybGtkR2c5SWpFeU9DSWdhR1ZwWjJoMFBTSXhNamdpSUdacGJHdzlJaU5tWmpRM056Y2lMejQ4TDJKaFkydG5jbTkxYm1RK1BIUmxlSFFnZUQwaU5qUWlJSGs5SWpZMElpQm1hV3hzUFNJamRtUm1keUlnWm05dWRDMW1ZVzFwYkhrOUltRnlhV0ZzSWlCbWIyNTBMWE5wZW1VOUlqUXdJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0krOGo5eUx6NDhMM04yWno0PSIsCiAgICAgICJzaXplcyI6ICIxMjh4MTI4IiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTlRFeUlpQm9aV2xuYUhROUlqVXhNaUlnZG1WeWMybHZiajBpTVM0eElpQjNiVzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk5eU1EQXdMM04yWnlJZ2VHMXNibk02ZUd4cGFtczlJbWgwZEhBNkx5OTNkM2N1ZHpNdWIzSm5MekU1T1RrdloyeHBibXNpUGp4aVlXTnJaM0p2ZFc1a1Bqd3paR2xtWmlCa1gxcE9Sd3pPRmpoUE9XTTNZMms1UTF4VVczZDBjVzVuSXlkaGJuaDBhV3czV0RjOUx6UTBVMDlVU0hoT1RVNU1OQ0JoWWpSeU9RPTwiLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
     <title>Rugby Training Pro 🏉</title>
     <style>
         * {
@@ -13,7 +15,7 @@
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #0a0a0a;
@@ -21,7 +23,7 @@
             overflow-x: hidden;
             padding-bottom: 70px;
         }
-        
+
         .header {
             background: linear-gradient(135deg, #ff4757 0%, #c44569 100%);
             padding: 20px;
@@ -29,9 +31,9 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
-        
+
         .header h1 {
             font-size: 24px;
             font-weight: 800;
@@ -39,7 +41,7 @@
             letter-spacing: 1px;
             margin-bottom: 5px;
         }
-        
+
         .phase-selector {
             display: flex;
             gap: 10px;
@@ -48,7 +50,7 @@
             padding: 5px 0;
             -webkit-overflow-scrolling: touch;
         }
-        
+
         .phase-btn {
             flex: 0 0 auto;
             padding: 12px 20px;
@@ -61,36 +63,42 @@
             transition: all 0.3s ease;
             white-space: nowrap;
         }
-        
+
         .phase-btn.active {
             background: linear-gradient(135deg, #ff4757, #c44569);
             border-color: #ff4757;
             transform: scale(1.05);
         }
-        
+
         .content {
             padding: 15px;
             display: none;
         }
-        
+
         .content.active {
             display: block;
             animation: fadeIn 0.3s ease;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .week-container {
             background: #1a1a1a;
             border-radius: 15px;
             margin-bottom: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
-        
+
         .week-header {
             background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
             padding: 15px;
@@ -101,25 +109,25 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .week-header::after {
             content: '▼';
             transition: transform 0.3s ease;
         }
-        
+
         .week-header.active::after {
             transform: rotate(180deg);
         }
-        
+
         .week-content {
             display: none;
             padding: 15px;
         }
-        
+
         .week-content.active {
             display: block;
         }
-        
+
         .day-card {
             background: linear-gradient(135deg, #2d3436 0%, #1a1a1a 100%);
             border-radius: 12px;
@@ -127,34 +135,34 @@
             margin-bottom: 15px;
             border: 1px solid #333;
         }
-        
+
         .day-card h3 {
             color: #ff4757;
             margin-bottom: 10px;
             font-size: 16px;
             font-weight: 700;
         }
-        
+
         .exercise-item {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             padding: 12px;
             margin: 8px 0;
             border-radius: 8px;
             border-left: 3px solid #ff4757;
         }
-        
+
         .exercise-item h4 {
             color: #ffc312;
             margin-bottom: 5px;
             font-size: 14px;
         }
-        
+
         .exercise-details {
             font-size: 13px;
             color: #ccc;
             line-height: 1.5;
         }
-        
+
         .timer-section {
             background: #1a1a1a;
             border-radius: 15px;
@@ -162,7 +170,7 @@
             margin: 15px;
             text-align: center;
         }
-        
+
         .timer {
             font-size: 48px;
             font-weight: 800;
@@ -170,14 +178,15 @@
             margin: 20px 0;
             font-family: 'Courier New', monospace;
         }
-        
+
         .timer-controls {
             display: flex;
             gap: 10px;
             justify-content: center;
             margin-top: 20px;
+            flex-wrap: wrap;
         }
-        
+
         .btn {
             padding: 12px 25px;
             background: linear-gradient(135deg, #ff4757, #c44569);
@@ -188,12 +197,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 14px;
+            margin: 5px;
         }
-        
+
         .btn:active {
             transform: scale(0.95);
         }
-        
+
+        .btn.secondary {
+            background: linear-gradient(135deg, #636e72, #2d3436);
+        }
+
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -203,30 +217,30 @@
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
-            box-shadow: 0 -2px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.3);
         }
-        
+
         .nav-item {
             text-align: center;
             padding: 5px 20px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item.active {
             color: #ff4757;
         }
-        
+
         .nav-icon {
             font-size: 24px;
             margin-bottom: 3px;
         }
-        
+
         .nav-label {
             font-size: 11px;
             font-weight: 600;
         }
-        
+
         .nutrition-card {
             background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
             border-radius: 15px;
@@ -234,47 +248,47 @@
             margin: 15px;
             color: white;
         }
-        
+
         .nutrition-card h3 {
             font-size: 18px;
             margin-bottom: 15px;
         }
-        
+
         .macro-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin-top: 15px;
         }
-        
+
         .macro-item {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 10px;
             border-radius: 8px;
             text-align: center;
         }
-        
+
         .macro-value {
             font-size: 20px;
             font-weight: 800;
         }
-        
+
         .macro-label {
             font-size: 12px;
             opacity: 0.9;
         }
-        
+
         .progress-section {
-            padding: 20px;
+            padding: 15px;
         }
-        
+
         .progress-card {
             background: #1a1a1a;
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 15px;
         }
-        
+
         .progress-bar {
             background: #333;
             height: 10px;
@@ -282,39 +296,39 @@
             overflow: hidden;
             margin: 10px 0;
         }
-        
+
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #ff4757, #ffc312);
             transition: width 0.3s ease;
         }
-        
+
         .stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             margin-top: 15px;
         }
-        
+
         .stat-item {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             padding: 15px;
             border-radius: 10px;
             text-align: center;
         }
-        
+
         .stat-value {
             font-size: 24px;
             font-weight: 800;
             color: #ff4757;
         }
-        
+
         .stat-label {
             font-size: 12px;
             color: #999;
             margin-top: 5px;
         }
-        
+
         .quick-access {
             position: fixed;
             bottom: 80px;
@@ -326,13 +340,93 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 20px rgba(255,71,87,0.4);
+            box-shadow: 0 5px 20px rgba(255, 71, 87, 0.4);
             cursor: pointer;
             z-index: 99;
+            font-size: 24px;
         }
-        
+
         .quick-access:active {
             transform: scale(0.9);
+        }
+
+        .meal-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #00b894;
+        }
+
+        .meal-time {
+            color: #00b894;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .checkmark {
+            position: relative;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background: transparent;
+            border: 2px solid #ff4757;
+            border-radius: 50%;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .checkmark.checked {
+            background: #ff4757;
+        }
+
+        .checkmark.checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+        }
+
+        .phase-description {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid #ff4757;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px;
+            text-align: center;
+        }
+
+        .phase-description h3 {
+            color: #ff4757;
+            margin-bottom: 10px;
+        }
+
+        .tips-container {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px;
+        }
+
+        .tip-item {
+            background: rgba(255, 193, 18, 0.1);
+            border-left: 4px solid #ffc312;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .tip-title {
+            color: #ffc312;
+            font-weight: 700;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -347,13 +441,17 @@
         <button class="phase-btn" onclick="showPhase('phase2')">Phase 2<br><small>Sem 4-6</small></button>
         <button class="phase-btn" onclick="showPhase('phase3')">Phase 3<br><small>Sem 7-8</small></button>
         <button class="phase-btn" onclick="showPhase('nutrition')">Nutrition</button>
+        <button class="phase-btn" onclick="showPhase('timer')">Timer</button>
         <button class="phase-btn" onclick="showPhase('progress')">Progrès</button>
     </div>
 
     <!-- PHASE 1 -->
     <div id="phase1" class="content active">
-        <h2 style="text-align: center; margin: 20px 0; color: #ff4757;">FONDATIONS EXPLOSIVES</h2>
-        
+        <div class="phase-description">
+            <h3>FONDATIONS EXPLOSIVES</h3>
+            <p>Construire la base de ta domination physique</p>
+        </div>
+
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week1')">
                 Semaine 1 : Éveil Neuromusculaire
@@ -362,10 +460,10 @@
                 <div class="day-card">
                     <h3>LUNDI - Puissance Lower Body</h3>
                     <div class="exercise-item">
-                        <h4>Échauffement (15 min)</h4>
+                        <h4>Échauffement Dynamique (15 min)</h4>
                         <div class="exercise-details">
                             • Mobilité hanches/chevilles<br>
-                            • Activation glutes<br>
+                            • Activation glutes (pont, clamshell)<br>
                             • Bear crawl + Spider walk
                         </div>
                     </div>
@@ -374,7 +472,7 @@
                         <div class="exercise-details">5x3 reps - Hauteur croissante</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>Squat avec bande</h4>
+                        <h4>Squat avec bande élastique</h4>
                         <div class="exercise-details">4x6 @70% - Explosif en montée</div>
                     </div>
                     <div class="exercise-item">
@@ -382,10 +480,14 @@
                         <div class="exercise-details">3x5/jambe</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>Finisher "Ruck & Roll"</h4>
+                        <h4>Rowing inversé explosif</h4>
+                        <div class="exercise-details">4x6 reps</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Finisher "Ruck & Roll" (10 min)</h4>
                         <div class="exercise-details">
                             10 burpees → 20m sprint → 10 squats jump → 20m bear crawl<br>
-                            4 tours, repos 90s
+                            <strong>4 tours, repos 90s</strong>
                         </div>
                     </div>
                 </div>
@@ -399,9 +501,9 @@
                     <div class="exercise-item">
                         <h4>Après-midi : "Warrior Mindset"</h4>
                         <div class="exercise-details">
-                            • 5x500m rameur @85%<br>
+                            • 5x500m rameur @85% (repos 2 min)<br>
                             • Entre chaque : 10 pompes + planche 30s<br>
-                            • Finir par 10 min visualisation
+                            • Finir par visualisation tactique (10 min)
                         </div>
                     </div>
                 </div>
@@ -431,25 +533,25 @@
                 </div>
 
                 <div class="day-card">
-                    <h3>JEUDI - Récupération Active</h3>
+                    <h3>JEUDI - Récupération Active Intelligente</h3>
                     <div class="exercise-item">
-                        <h4>Programme Récup</h4>
+                        <h4>Programme Récupération</h4>
                         <div class="exercise-details">
                             • Piscine : 30 min nage libre<br>
-                            • Sauna/Bain froid<br>
-                            • Proprioception : 15 min
+                            • Sauna/Bain froid (contrast therapy)<br>
+                            • Travail proprioception : 15 min
                         </div>
                     </div>
                 </div>
 
                 <div class="day-card">
-                    <h3>VENDREDI - Skills & Puissance</h3>
+                    <h3>VENDREDI - Skills & Drills</h3>
                     <div class="exercise-item">
-                        <h4>Matinée : Technique</h4>
+                        <h4>Matinée : Technique individuelle</h4>
                         <div class="exercise-details">
-                            • 200 passes murales<br>
+                            • Passes contre mur (200 passes variées)<br>
                             • Footwork ladder drills<br>
-                            • Catches hautes
+                            • Catches hautes avec perturbation
                         </div>
                     </div>
                     <div class="exercise-item">
@@ -480,12 +582,24 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="day-card">
+                    <h3>DIMANCHE - Récupération</h3>
+                    <div class="exercise-item">
+                        <h4>Programme Repos</h4>
+                        <div class="exercise-details">
+                            • Marche nature 45 min<br>
+                            • Étirements profonds<br>
+                            • Préparation mentale semaine 2
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week2')">
-                Semaine 2-3 : Intensification
+                Semaines 2-3 : Intensification Progressive
             </div>
             <div id="week2" class="week-content">
                 <div class="day-card">
@@ -499,10 +613,11 @@
                         <div class="exercise-details">6x40m - Récup complète</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>Exercices de lutte</h4>
+                        <h4>Exercices de lutte/combat</h4>
                         <div class="exercise-details">Grappling 3x2 min</div>
                     </div>
                 </div>
+
                 <div class="day-card">
                     <h3>Nouveautés Semaine 3</h3>
                     <div class="exercise-item">
@@ -514,7 +629,7 @@
                         <div class="exercise-details">Adapté à ton poste</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>Simulation phases de jeu</h4>
+                        <h4>Simulation de phases de jeu</h4>
                         <div class="exercise-details">Enchaînements rugby 4x5 min</div>
                     </div>
                 </div>
@@ -524,11 +639,14 @@
 
     <!-- PHASE 2 -->
     <div id="phase2" class="content">
-        <h2 style="text-align: center; margin: 20px 0; color: #ff4757;">TRANSFORMATION ATHLÉTIQUE</h2>
-        
+        <div class="phase-description">
+            <h3>TRANSFORMATION ATHLÉTIQUE</h3>
+            <p>Devenir une machine de guerre contrôlée</p>
+        </div>
+
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week4')">
-                Semaine 4-6 : Integration Game-Speed
+                Semaine 4 : Integration Game-Speed
             </div>
             <div id="week4" class="week-content">
                 <div class="day-card">
@@ -536,7 +654,786 @@
                     <div class="exercise-item">
                         <h4>A. Activation Explosive (10 min)</h4>
                         <div class="exercise-details">
-                            • Medecine ball slams<br>
+                            • Medicine ball slams<br>
                             • Lateral bounds<br>
                             • Reactive agility
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>B. Force-Puissance Superset</h4>
+                        <div class="exercise-details">
+                            1. Back Squat 4x3 @85% → 8 jump squats<br>
+                            2. Bench Press 4x3 @85% → 8 clap push-ups<br>
+                            3. Deadlift 4x3 @85% → 6 broad jumps
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>C. Conditionnement Spécifique Rugby</h4>
+                        <div class="exercise-details">
+                            <strong>"Phases de Jeu" - 20 min</strong><br>
+                            • 30s combat au sol (grappling)<br>
+                            • 15s sprint<br>
+                            • 30s bear crawl avec sac<br>
+                            • 15s repos<br>
+                            <strong>Répéter 8 fois</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="week-container">
+            <div class="week-header" onclick="toggleWeek('week5')">
+                Semaines 5-6 : Innovations
+            </div>
+            <div id="week5" class="week-content">
+                <div class="day-card">
+                    <h3>Mental Training</h3>
+                    <div class="exercise-item">
+                        <h4>Visualisation sous fatigue</h4>
+                        <div class="exercise-details">Pendant les repos entre séries</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>Nutrition Timing</h3>
+                    <div class="exercise-item">
+                        <h4>Carb cycling</h4>
+                        <div class="exercise-details">Pour maximiser l'énergie</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>Cold Exposure</h3>
+                    <div class="exercise-item">
+                        <h4>Douches froides post-training</h4>
+                        <div class="exercise-details">Résilience mentale</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div id="phase3" class="content">
+        <div class="phase-description">
+            <h3>PIC DE FORME</h3>
+            <p>Affûtage et domination</p>
+        </div>
+
+        <div class="week-container">
+            <div class="week-header" onclick="toggleWeek('week7')">
+                Semaine 7 : Affûtage Intelligent
+            </div>
+            <div id="week7" class="week-content">
+                <div class="day-card">
+                    <h3>LUNDI - Force & Explosivité</h3>
+                    <div class="exercise-item">
+                        <h4>Échauffement Activation Neurale (15 min)</h4>
+                        <div class="exercise-details">
+                            • 5 min vélo léger<br>
+                            • Mobilité dynamique complète<br>
+                            • 3x5 box jumps progressifs<br>
+                            • 3x3 medicine ball slams
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Tests Force Maximale (30 min)</h4>
+                        <div class="exercise-details">
+                            <strong>Squat :</strong><br>
+                            5@60% / 3@70% / 1@80% / 1@90% / 1@95% / 1@100%+<br>
+                            <strong>Développé Couché :</strong> Même protocole<br>
+                            <strong>Power Clean :</strong> 1RM technique parfaite
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Plyométrie Légère (20 min)</h4>
+                        <div class="exercise-details">
+                            • Drop jumps : 4x3<br>
+                            • Bounds latéraux : 3x6/côté<br>
+                            • Medicine ball chest pass : 4x5<br>
+                            • Sprint départs arrêtés : 5x10m
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>MARDI - Simulation Match Totale</h3>
+                    <div class="exercise-item">
+                        <h4>"Le Test de Vérité"</h4>
+                        <div class="exercise-details">
+                            <strong>Structure : 4 x 20 minutes</strong><br>
+                            Repos 5 min entre les quart-temps<br><br>
+                            <strong>Quart-Temps 1 :</strong><br>
+                            0-5 min : 70% intensité<br>
+                            5-15 min : 85% intensité<br>
+                            15-20 min : 95% intensité<br><br>
+                            <strong>Contenu par Quart-Temps :</strong><br>
+                            • 10 rucks/mauls<br>
+                            • 15 plaquages<br>
+                            • 8 sprints 20-30m<br>
+                            • 5 situations de jeu
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>MERCREDI - Récupération Active Premium</h3>
+                    <div class="exercise-item">
+                        <h4>Matin (45 min)</h4>
+                        <div class="exercise-details">
+                            • Piscine : 20 min nage variée<br>
+                            • Jacuzzi/Spa : 10 min<br>
+                            • Étirements dans l'eau : 15 min
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Après-midi - Technique Fine (60 min)</h4>
+                        <div class="exercise-details">
+                            <strong>Skills Individuels (30 min) :</strong><br>
+                            • 100 passes murales<br>
+                            • 50 drops, 50 coups de pied rasants<br>
+                            • Réceptions balles hautes<br><br>
+                            <strong>Situation Tactiques (20 min) :</strong><br>
+                            • Lecture défensive<br>
+                            • Placement en phase statique<br>
+                            • Communication spécifique position
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>JEUDI - Puissance Pure</h3>
+                    <div class="exercise-item">
+                        <h4>Principe : Qualité > Quantité</h4>
+                        <div class="exercise-details">
+                            <strong>Bloc Principal (35 min) :</strong><br>
+                            1. Squats Jump : 5x3 @30% (vitesse MAX)<br>
+                            2. Bench Press Balistique : 5x3 @40%<br>
+                            3. High Pull : 4x2 @60%<br><br>
+                            <strong>Sprints Techniques (20 min) :</strong><br>
+                            • 3x20m départ arrêté (repos 3 min)<br>
+                            • 3x30m départ lancé (repos 4 min)<br>
+                            • 2x40m avec changement direction
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>VENDREDI - Activation & Stratégie</h3>
+                    <div class="exercise-item">
+                        <h4>Matin : Activation Légère (30 min)</h4>
+                        <div class="exercise-details">
+                            • Yoga dynamique<br>
+                            • Circuit mobilité<br>
+                            • 5x50m accélérations progressives
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Après-midi : Briefing Tactique (45 min)</h4>
+                        <div class="exercise-details">
+                            • Analyse adversaire<br>
+                            • Répétition des combinaisons<br>
+                            • Visualisation des phases clés<br>
+                            • Communication : mots-clés équipe
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Finisher Neural (15 min)</h4>
+                        <div class="exercise-details">
+                            • 10x10m sprints (30s repos)<br>
+                            • Réactivité : échelle de rythme<br>
+                            • Coordination : jonglage + déplacements
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>WEEKEND - Performance Time</h3>
+                    <div class="exercise-item">
+                        <h4>Option A : Match Amical</h4>
+                        <div class="exercise-details">
+                            • Échauffement complet 45 min<br>
+                            • Focus : Appliquer les acquis<br>
+                            • Pas de pression résultat<br>
+                            • Auto-évaluation post-match
+                        </div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Option B : Simulation Complète</h4>
+                        <div class="exercise-details">
+                            • Conditions match réelles<br>
+                            • Arbitrage<br>
+                            • Vidéo pour analyse<br>
+                            • Debrief complet
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="week-container">
+            <div class="week-header" onclick="toggleWeek('week8')">
+                Semaine 8 : Domination Finale
+            </div>
+            <div id="week8" class="week-content">
+                <div class="day-card">
+                    <h3>Principes Semaine 8</h3>
+                    <div class="exercise-item">
+                        <h4>Règles d'Or</h4>
+                        <div class="exercise-details">
+                            • Volume -30% vs Semaine 7<br>
+                            • Intensité maintenue à 95-100%<br>
+                            • Récupération prioritaire<br>
+                            • Confiance maximale
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>LUNDI S8 : Rappel Force + Vitesse</h3>
+                    <div class="exercise-item">
+                        <h4>Programme Léger</h4>
+                        <div class="exercise-details">
+                            • 3x2 @85% mouvements principaux<br>
+                            • Plyométrie légère<br>
+                            • Sprints courts
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>MARDI S8 : Match Tactique</h3>
+                    <div class="exercise-item">
+                        <h4>Simulation (60 min)</h4>
+                        <div class="exercise-details">
+                            • Intensité match<br>
+                            • Focus exécution parfaite<br>
+                            • Gestion de l'effort
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>MERCREDI S8 : Récupération Totale</h3>
+                    <div class="exercise-item">
+                        <h4>Programme Récup</h4>
+                        <div class="exercise-details">
+                            • Massage<br>
+                            • Cryothérapie<br>
+                            • Mental coaching
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>JEUDI S8 : Activation Finale</h3>
+                    <div class="exercise-item">
+                        <h4>30 min seulement</h4>
+                        <div class="exercise-details">
+                            • Mouvements à vide<br>
+                            • Vitesse gestuelle<br>
+                            • Activation neurale
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>VENDREDI S8 : Repos + Visualisation</h3>
+                    <div class="exercise-item">
+                        <h4>Préparation Finale</h4>
+                        <div class="exercise-details">
+                            • Préparation mentale<br>
+                            • Nutrition parfaite<br>
+                            • Organisation logistique
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-card">
+                    <h3>WEEKEND S8 : SHOWTIME 🏆</h3>
+                    <div class="exercise-item">
+                        <h4>C'est l'heure !</h4>
+                        <div class="exercise-details">
+                            • Application de 8 semaines de travail<br>
+                            • Domination physique et mentale<br>
+                            • Devenir le joueur indispensable
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h3 style="color: #ff4757; margin-bottom: 15px;">🔑 Clés de Réussite Phase 3</h3>
+            <div class="tip-item">
+                <div class="tip-title">Gestion de la Fatigue</div>
+                <div>RPE quotidien (1-10). Si >7 pendant 2 jours → réduire volume</div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-title">Indicateurs de Forme</div>
+                <div>✅ Sensations de légèreté ✅ Envie de jouer ✅ Sommeil qualité ✅ Explosivité top</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NUTRITION -->
+    <div id="nutrition" class="content">
+        <div class="nutrition-card">
+            <h3>🍽️ Plan Alimentaire Quotidien</h3>
+            <div class="macro-grid">
+                <div class="macro-item">
+                    <div class="macro-value">6-7g</div>
+                    <div class="macro-label">Glucides/kg</div>
+                </div>
+                <div class="macro-item">
+                    <div class="macro-value">2.2g</div>
+                    <div class="macro-label">Protéines/kg</div>
+                </div>
+                <div class="macro-item">
+                    <div class="macro-value">1.2g</div>
+                    <div class="macro-label">Lipides/kg</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 15px;">
+            <h3 style="color: #ff4757; margin-bottom: 15px;">Exemple Journée Type</h3>
+            
+            <div class="meal-item">
+                <div class="meal-time">6h30 - Petit Déjeuner</div>
+                <div>Avoine (100g) + Whey + Fruits rouges + Amandes</div>
+            </div>
+            
+            <div class="meal-item">
+                <div class="meal-time">10h - Post-Training</div>
+                <div>Shake (Whey + Banane + Miel)</div>
+            </div>
+            
+            <div class="meal-item">
+                <div class="meal-time">12h30 - Déjeuner</div>
+                <div>Poulet (200g) + Riz (150g) + Légumes + Huile olive</div>
+            </div>
+            
+            <div class="meal-item">
+                <div class="meal-time">16h - Collation</div>
+                <div>Pain complet + Beurre cacahuète + Pomme</div>
+            </div>
+            
+            <div class="meal-item">
+                <div class="meal-time">19h30 - Dîner</div>
+                <div>Saumon + Patates douces + Salade + Avocat</div>
+            </div>
+            
+            <div class="meal-item">
+                <div class="meal-time">22h - Coucher</div>
+                <div>Fromage blanc + Noix</div>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <h3 style="color: #00b894; margin-bottom: 15px;">💊 Supplémentation Stratégique</h3>
+            <div class="tip-item" style="border-left: 4px solid #00b894;">
+                <div class="tip-title">Créatine</div>
+                <div>5g/jour pour la puissance</div>
+            </div>
+            <div class="tip-item" style="border-left: 4px solid #00b894;">
+                <div class="tip-title">Oméga-3</div>
+                <div>2g EPA/DHA pour la récupération</div>
+            </div>
+            <div class="tip-item" style="border-left: 4px solid #00b894;">
+                <div class="tip-title">Vitamine D</div>
+                <div>2000 UI si peu d'exposition solaire</div>
+            </div>
+            <div class="tip-item" style="border-left: 4px solid #00b894;">
+                <div class="tip-title">Magnésium</div>
+                <div>400mg au coucher pour le sommeil</div>
+            </div>
+            <div class="tip-item" style="border-left: 4px solid #00b894;">
+                <div class="tip-title">Zinc</div>
+                <div>15mg pour récupération/testostérone</div>
+            </div>
+        </div>
+
+        <div style="margin: 15px;">
+            <h3 style="color: #ff4757; margin-bottom: 15px;">🏉 Nutrition Match</h3>
+            
+            <div class="day-card">
+                <h3>Veille de Match</h3>
+                <div class="exercise-details">
+                    • Augmenter les glucides complexes<br>
+                    • Réduire les fibres et graisses<br>
+                    • Hydratation importante (2-3L)<br>
+                    • Dernier repas riche en glucides 3h avant coucher
+                </div>
+            </div>
+            
+            <div class="day-card">
+                <h3>Jour de Match</h3>
+                <div class="exercise-details">
+                    <strong>3-4h avant :</strong> Pâtes/riz + blanc de poulet + sauce tomate<br>
+                    <strong>1h avant :</strong> Barre énergétique + banane<br>
+                    <strong>Pendant :</strong> Boisson isotonique<br>
+                    <strong>Après :</strong> Protéines + glucides (récupération)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TIMER -->
+    <div id="timer" class="content">
+        <div class="timer-section">
+            <h3 style="margin-bottom: 20px;">⏱️ Timer d'Entraînement</h3>
+            <div class="timer" id="timerDisplay">00:00</div>
+            <div class="timer-controls">
+                <button class="btn" onclick="startTimer()">▶️ Start</button>
+                <button class="btn" onclick="pauseTimer()">⏸️ Pause</button>
+                <button class="btn" onclick="resetTimer()">🔄 Reset</button>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h4 style="color: #ffc312; margin-bottom: 15px;">⚡ Timers Prédéfinis</h4>
+                <div class="timer-controls">
+                    <button class="btn secondary" onclick="setTimer(30)">30s</button>
+                    <button class="btn secondary" onclick="setTimer(45)">45s</button>
+                    <button class="btn secondary" onclick="setTimer(60)">1 min</button>
+                    <button class="btn secondary" onclick="setTimer(90)">1:30</button>
+                    <button class="btn secondary" onclick="setTimer(120)">2 min</button>
+                    <button class="btn secondary" onclick="setTimer(180)">3 min</button>
+                    <button class="btn secondary" onclick="setTimer(300)">5 min</button>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h4 style="color: #ffc312; margin-bottom: 15px;">🔥 HIIT Timer</h4>
+                <div>
+                    <label style="display: block; margin: 10px 0;">
+                        Travail (sec): <input type="number" id="workTime" value="30" style="width: 60px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px;">
+                    </label>
+                    <label style="display: block; margin: 10px 0;">
+                        Repos (sec): <input type="number" id="restTime" value="30" style="width: 60px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px;">
+                    </label>
+                    <label style="display: block; margin: 10px 0;">
+                        Rounds: <input type="number" id="rounds" value="8" style="width: 60px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px;">
+                    </label>
+                </div>
+                <button class="btn" onclick="startHIIT()">🚀 Start HIIT</button>
+                <div id="hiitStatus" style="margin-top: 15px; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div id="progress" class="content">
+        <div class="progress-section">
+            <h2 style="color: #ff4757; margin-bottom: 20px;">📊 Suivi de Progression</h2>
+            
+            <div class="progress-card">
+                <h3>Progression Générale</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
+                    <span>Programme Complet</span>
+                    <span style="color: #ff4757; font-weight: bold;" id="overallProgress">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgressBar" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="completedWorkouts">0</div>
+                    <div class="stat-label">Séances Terminées</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="currentWeek">1</div>
+                    <div class="stat-label">Semaine Actuelle</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalWorkouts">56</div>
+                    <div class="stat-label">Séances Totales</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="streakDays">0</div>
+                    <div class="stat-label">Jours Consécutifs</div>
+                </div>
+            </div>
+
+            <div class="progress-card">
+                <h3>Tests de Performance</h3>
+                <div style="margin: 15px 0;">
+                    <label style="display: block; margin: 10px 0; color: #ffc312;">
+                        Sprint 10m (sec):
+                        <input type="number" step="0.01" id="sprint10m" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
+                    </label>
+                    <label style="display: block; margin: 10px 0; color: #ffc312;">
+                        Squat 1RM (kg):
+                        <input type="number" id="squatMax" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
+                    </label>
+                    <label style="display: block; margin: 10px 0; color: #ffc312;">
+                        Développé Couché 1RM (kg):
+                        <input type="number" id="benchMax" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
+                    </label>
+                    <label style="display: block; margin: 10px 0; color: #ffc312;">
+                        Détente Verticale (cm):
+                        <input type="number" id="verticalJump" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
+                    </label>
+                </div>
+                <button class="btn" onclick="savePerformance()">💾 Sauvegarder</button>
+            </div>
+
+            <div class="progress-card">
+                <h3>Objectifs Semaine</h3>
+                <div id="weeklyGoals">
+                    <div style="display: flex; align-items: center; margin: 10px 0;">
+                        <span class="checkmark" onclick="toggleGoal(this)"></span>
+                        <span>Compléter toutes les séances</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 10px 0;">
+                        <span class="checkmark" onclick="toggleGoal(this)"></span>
+                        <span>Respecter la nutrition</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 10px 0;">
+                        <span class="checkmark" onclick="toggleGoal(this)"></span>
+                        <span>8h de sommeil minimum</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin: 10px 0;">
+                        <span class="checkmark" onclick="toggleGoal(this)"></span>
+                        <span>Hydratation 3L/jour</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-access" onclick="quickTimer()">
+        ⏱️
+    </div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showPhase('phase1')">
+            <div class="nav-icon">💪</div>
+            <div class="nav-label">Phase 1</div>
+        </div>
+        <div class="nav-item" onclick="showPhase('phase2')">
+            <div class="nav-icon">🔥</div>
+            <div class="nav-label">Phase 2</div>
+        </div>
+        <div class="nav-item" onclick="showPhase('phase3')">
+            <div class="nav-icon">🏆</div>
+            <div class="nav-label">Phase 3</div>
+        </div>
+        <div class="nav-item" onclick="showPhase('nutrition')">
+            <div class="nav-icon">🍽️</div>
+            <div class="nav-label">Nutrition</div>
+        </div>
+        <div class="nav-item" onclick="showPhase('timer')">
+            <div class="nav-icon">⏱️</div>
+            <div class="nav-label">Timer</div>
+        </div>
+        <div class="nav-item" onclick="showPhase('progress')">
+            <div class="nav-icon">📊</div>
+            <div class="nav-label">Progrès</div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let timerInterval;
+        let currentTime = 0;
+        let isRunning = false;
+        let hiitInterval;
+        let hiitCurrentRound = 0;
+        let hiitPhase = 'work'; // 'work' ou 'rest'
+        let hiitTimeLeft = 0;
+
+        // Gestion des phases
+        function showPhase(phaseId) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Désactiver tous les boutons
+            document.querySelectorAll('.phase-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Activer la section sélectionnée
+            document.getElementById(phaseId).classList.add('active');
+            
+            // Activer le bouton correspondant
+            document.querySelector(`[onclick="showPhase('${phaseId}')"]`).classList.add('active');
+            
+            // Activer l'item de navigation correspondant
+            document.querySelector(`.nav-item [onclick="showPhase('${phaseId}')"]`)?.parentElement.classList.add('active');
+        }
+
+        // Gestion des semaines
+        function toggleWeek(weekId) {
+            const weekContent = document.getElementById(weekId);
+            const weekHeader = weekContent.previousElementSibling;
+            
+            if (weekContent.classList.contains('active')) {
+                weekContent.classList.remove('active');
+                weekHeader.classList.remove('active');
+            } else {
+                weekContent.classList.add('active');
+                weekHeader.classList.add('active');
+            }
+        }
+
+        // Timer functions
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateDisplay() {
+            document.getElementById('timerDisplay').textContent = formatTime(currentTime);
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    currentTime++;
+                    updateDisplay();
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            currentTime = 0;
+            updateDisplay();
+        }
+
+        function setTimer(seconds) {
+            resetTimer();
+            currentTime = seconds;
+            updateDisplay();
+        }
+
+        function startHIIT() {
+            const workTime = parseInt(document.getElementById('workTime').value);
+            const restTime = parseInt(document.getElementById('restTime').value);
+            const rounds = parseInt(document.getElementById('rounds').value);
+            
+            hiitCurrentRound = 1;
+            hiitPhase = 'work';
+            hiitTimeLeft = workTime;
+            
+            document.getElementById('hiitStatus').innerHTML = `Round ${hiitCurrentRound}/${rounds} - TRAVAIL`;
+            
+            hiitInterval = setInterval(() => {
+                hiitTimeLeft--;
+                document.getElementById('timerDisplay').textContent = formatTime(hiitTimeLeft);
                 
+                if (hiitTimeLeft <= 0) {
+                    if (hiitPhase === 'work') {
+                        hiitPhase = 'rest';
+                        hiitTimeLeft = restTime;
+                        document.getElementById('hiitStatus').innerHTML = `Round ${hiitCurrentRound}/${rounds} - REPOS`;
+                        // Son de notification (si supporté)
+                        if ('vibrate' in navigator) navigator.vibrate(200);
+                    } else {
+                        hiitCurrentRound++;
+                        if (hiitCurrentRound <= rounds) {
+                            hiitPhase = 'work';
+                            hiitTimeLeft = workTime;
+                            document.getElementById('hiitStatus').innerHTML = `Round ${hiitCurrentRound}/${rounds} - TRAVAIL`;
+                            if ('vibrate' in navigator) navigator.vibrate([100, 50, 100]);
+                        } else {
+                            clearInterval(hiitInterval);
+                            document.getElementById('hiitStatus').innerHTML = `🎉 HIIT TERMINÉ ! Excellent travail !`;
+                            document.getElementById('timerDisplay').textContent = '00:00';
+                            if ('vibrate' in navigator) navigator.vibrate([200, 100, 200, 100, 200]);
+                        }
+                    }
+                }
+            }, 1000);
+        }
+
+        function quickTimer() {
+            setTimer(60);
+            startTimer();
+        }
+
+        // Progress functions
+        function toggleGoal(element) {
+            element.classList.toggle('checked');
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const checkedGoals = document.querySelectorAll('.checkmark.checked').length;
+            const totalGoals = document.querySelectorAll('.checkmark').length;
+            const progress = Math.round((checkedGoals / totalGoals) * 100);
+            
+            document.getElementById('overallProgress').textContent = progress + '%';
+            document.getElementById('overallProgressBar').style.width = progress + '%';
+        }
+
+        function savePerformance() {
+            const sprint = document.getElementById('sprint10m').value;
+            const squat = document.getElementById('squatMax').value;
+            const bench = document.getElementById('benchMax').value;
+            const jump = document.getElementById('verticalJump').value;
+            
+            // Dans une vraie app, on sauvegarderait dans localStorage ou une base de données
+            alert('Performance sauvegardée ! 💪');
+        }
+
+        // Service Worker pour fonctionnement hors ligne
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:application/javascript;base64,Ly8gU2VydmljZSBXb3JrZXIgcG91ciBmb25jdGlvbm5lbWVudCBob3JzIGxpZ25lCmNvbnN0IENBQ0hFX05BTUUgPSAncnVnYnktdHJhaW5pbmctdjEnOwpjb25zdCB1cmxzVG9DYWNoZSA9IFsKICAnLycsCiAgJy9pbmRleC5odG1sJwpdOwoKLy8gSW5zdGFsbGF0aW9uIGR1IFNlcnZpY2UgV29ya2VyCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcignaW5zdGFsbCcsIGV2ZW50ID0+IHsKICBldmVudC53YWl0VW50aWwoCiAgICBjYWNoZXMub3BlbihDQUNIRV9OQU1FKQogICAgICAudGhlbihjYWNoZSA9PiB7CiAgICAgICAgcmV0dXJuIGNhY2hlLmFkZEFsbCh1cmxzVG9DYWNoZSk7CiAgICAgIH0pCiAgKTsKfSk7CgovLyBJbnRlcmNlcHRpb24gZGVzIHJlcXXDqnRlcwpzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJywgZXZlbnQgPT4gewogIGV2ZW50LnJlc3BvbmRXaXRoKAogICAgY2FjaGVzLm1hdGNoKGV2ZW50LnJlcXVlc3QpCiAgICAgIC50aGVuKHJlc3BvbnNlID0+IHsKICAgICAgICAvLyBSZXRvdXJuZSBsYSByZXNzb3VyY2UgZW4gY2FjaGUgc2kgZWxsZSBleGlzdGUKICAgICAgICBpZiAocmVzcG9uc2UpIHsKICAgICAgICAgIHJldHVybiByZXNwb25zZTsKICAgICAgICB9CiAgICAgICAgLy8gU2lub24sIGVzc2FpZSBkZSBsYSByZWNoYXJnZXIgZGVwdWlzIGxlIHLDqXNlYXUKICAgICAgICByZXR1cm4gZmV0Y2goZXZlbnQucmVxdWVzdCk7CiAgICAgIH0pCiAgKTsKfSk7')
+                .then(() => console.log('Service Worker enregistré'))
+                .catch(err => console.log('Erreur Service Worker:', err));
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDisplay();
+            updateProgress();
+        });
+
+        // Gestion du swipe pour mobile
+        let startX, startY, distX, distY;
+        const threshold = 150;
+        const restraint = 100;
+
+        document.addEventListener('touchstart', function(e) {
+            startX = e.changedTouches[0].pageX;
+            startY = e.changedTouches[0].pageY;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            distX = e.changedTouches[0].pageX - startX;
+            distY = e.changedTouches[0].pageY - startY;
+            
+            if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+                const phases = ['phase1', 'phase2', 'phase3', 'nutrition', 'timer', 'progress'];
+                const currentPhase = document.querySelector('.content.active').id;
+                const currentIndex = phases.indexOf(currentPhase);
+                
+                if (distX > 0 && currentIndex > 0) {
+                    // Swipe right - phase précédente
+                    showPhase(phases[currentIndex - 1]);
+                } else if (distX < 0 && currentIndex < phases.length - 1) {
+                    // Swipe left - phase suivante
+                    showPhase(phases[currentIndex + 1]);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
