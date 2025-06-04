@@ -3,6 +3,6 @@
     "default": "rugbyprep-88747"
   },
   "hosting": {
-    "public": "rugbyprep/rugbyapp/www"
+    "public": "www"
   }
 }
