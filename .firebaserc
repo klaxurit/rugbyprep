@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "rugbyprep-88747"
+  },
+  "hosting": {
+    "public": "rugbyprep/rugbyapp/www"
+  }
+}
