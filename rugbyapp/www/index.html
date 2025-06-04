@@ -9,8 +9,31 @@
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlJ1Z2J5IFRyYWluaW5nIFBybyIsCiAgInNob3J0X25hbWUiOiAiUnVnYnkgUHJvIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYTBhMGEiLAogICJ0aGVtZV9jb2xvciI6ICIjZmY0NzU3IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTVRJNElpQm9aV2xuYUhROUlqRXlPQ0lpSUhabGNuTnBiMjQ5SWpFdU1TSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklpQjRiV3h1Y3pwNGJHbHVhejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TVRrNU9TOWJiR2x1YXlJK1BHSmhZMnRuY205MWJtUStQSEpsWTNRZ2QybGtkR2c5SWpFeU9DSWdhR1ZwWjJoMFBTSXhNamdpSUdacGJHdzlJaU5tWmpRM056Y2lMejQ4TDJKaFkydG5jbTkxYm1RK1BIUmxlSFFnZUQwaU5qUWlJSGs5SWpZMElpQm1hV3hzUFNJamRtUm1keUlnWm05dWRDMW1ZVzFwYkhrOUltRnlhV0ZzSWlCbWIyNTBMWE5wZW1VOUlqUXdJaUJtYjI1MExYZGxhV2RvZEQwaVltOXNaQ0krOGo5eUx6NDhMM04yWno0PSIsCiAgICAgICJzaXplcyI6ICIxMjh4MTI4IiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCM2FXUjBhRDBpTlRFeUlpQm9aV2xuYUhROUlqVXhNaUlnZG1WeWMybHZiajBpTVM0eElpQjNiVzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk5eU1EQXdMM04yWnlJZ2VHMXNibk02ZUd4cGFtczlJbWgwZEhBNkx5OTNkM2N1ZHpNdWIzSm5MekU1T1RrdloyeHBibXNpUGp4aVlXTnJaM0p2ZFc1a1Bqd3paR2xtWmlCa1gxcE9Sd3pPRmpoUE9XTTNZMms1UTF4VVczZDBjVzVuSXlkaGJuaDBhV3czV0RjOUx6UTBVMDlVU0hoT1RVNU1OQ0JoWWpSeU9UMT0iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
     <title>Rugby Training Pro 🏉</title>
     <link rel="stylesheet" href="css/index.css">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCgpzlUeQdS7b0EKceR8Ea6TGv3N5IPuDo",
+        authDomain: "rugbyprep-88747.firebaseapp.com",
+        projectId: "rugbyprep-88747",
+        storageBucket: "rugbyprep-88747.firebasestorage.app",
+        messagingSenderId: "911067593685",
+        appId: "1:911067593685:web:8a655a020ab791b3f19b5c",
+        measurementId: "G-4T25DRSVTM"
+      };
+      firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 <body>
+    <div id="auth-section" style="max-width:400px;margin:40px auto;display:none;">
+      <h2>Connexion</h2>
+      <input type="email" id="email" placeholder="Email" style="width:100%;margin-bottom:10px;">
+      <input type="password" id="password" placeholder="Mot de passe" style="width:100%;margin-bottom:10px;">
+      <button onclick="login()" style="width:49%;">Connexion</button>
+      <button onclick="signup()" style="width:49%;">Créer un compte</button>
+      <div id="auth-error" style="color:red;margin-top:10px;"></div>
+    </div>
+    <button id="logout-btn" onclick="firebase.auth().signOut()" style="display:none;position:fixed;top:10px;right:10px;z-index:999;">Déconnexion</button>
     <div class="header">
         <h1>🏉 Rugby Training Pro</h1>
         <div style="font-size: 14px; opacity: 0.9;">Programme Intersaison Complet</div>
@@ -376,11 +399,11 @@
 
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week4')">
-                Semaine 4 : Integration Game-Speed
+                Semaine 4 : Programme Complet Game-Speed
             </div>
             <div id="week4" class="week-content">
                 <div class="day-card">
-                    <h3>Format Bloc Principal (3x/semaine)</h3>
+                    <h3>LUNDI – Bloc Principal</h3>
                     <div class="exercise-item">
                         <h4>A. Activation Explosive (10 min)</h4>
                         <div class="exercise-details">
@@ -388,6 +411,7 @@
                             • Lateral bounds<br>
                             • Reactive agility
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sauts latéraux rapides, slams simulés avec un sac ou un ballon lesté, parcours d'agilité avec plots ou objets du quotidien</div>
                     </div>
                     <div class="exercise-item">
                         <h4>B. Force-Puissance Superset</h4>
@@ -396,17 +420,72 @@
                             2. Bench Press 4x3 @85% → 8 clap push-ups<br>
                             3. Deadlift 4x3 @85% → 6 broad jumps
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Si pas de barre : squats sautés lestés (sac à dos), pompes explosives, soulevé de terre avec haltères ou sac, sauts en longueur sans matériel</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>C. Conditionnement Spécifique Rugby</h4>
+                        <h4>C. Conditionnement Spécifique Rugby (20 min)</h4>
                         <div class="exercise-details">
-                            <strong>"Phases de Jeu" - 20 min</strong><br>
                             • 30s combat au sol (grappling)<br>
                             • 15s sprint<br>
                             • 30s bear crawl avec sac<br>
                             • 15s repos<br>
                             <strong>Répéter 8 fois</strong>
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> 30s shadow wrestling ou burpees, 15s sprint, 30s bear crawl, 15s repos, répéter 8x</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>MARDI – Cardio & Mobilité</h3>
+                    <div class="exercise-item">
+                        <h4>Cardio Intervalles</h4>
+                        <div class="exercise-details">10x200m @90% (repos 1min)</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sprints sur place ou escaliers si pas de piste</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Mobilité complète</h4>
+                        <div class="exercise-details">20 min stretching dynamique et mobilité articulaire</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>MERCREDI – Skills & Technique</h3>
+                    <div class="exercise-item">
+                        <h4>Technique individuelle</h4>
+                        <div class="exercise-details">Passes, jeu au pied, réception, feintes</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Passes contre un mur, jonglage, jeu au pied sur cible, réception de balles lancées en l'air</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Travail d'appuis</h4>
+                        <div class="exercise-details">Ladder drills, changements de direction, plots</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Utilise des objets du quotidien comme plots</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>JEUDI – Récupération Active</h3>
+                    <div class="exercise-item">
+                        <h4>Repos actif</h4>
+                        <div class="exercise-details">Marche, natation, vélo léger, stretching</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>VENDREDI – Bloc Puissance & Rugby</h3>
+                    <div class="exercise-item">
+                        <h4>Bloc identique à lundi</h4>
+                        <div class="exercise-details">Répéter le bloc principal du lundi, en adaptant l'intensité selon la fatigue</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>SAMEDI – Challenge Rugby</h3>
+                    <div class="exercise-item">
+                        <h4>Jeu réduit ou circuit rugby</h4>
+                        <div class="exercise-details">Match amical, circuit rugby, ou challenge personnel (enchaînements d'exercices rugby)</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Circuit : 1 min burpees, 1 min bear crawl, 1 min sprints, 1 min shadow rugby, 1 min repos, répéter 3x</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>DIMANCHE – Récupération</h3>
+                    <div class="exercise-item">
+                        <h4>Repos complet ou marche active</h4>
+                        <div class="exercise-details">Étirements, hydratation, préparation mentale</div>
                     </div>
                 </div>
             </div>
@@ -414,28 +493,87 @@
 
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week5')">
-                Semaines 5-6 : Innovations
+                Semaines 5-6 : Programme Complet Innovations
             </div>
             <div id="week5" class="week-content">
                 <div class="day-card">
-                    <h3>Mental Training</h3>
+                    <h3>LUNDI – Bloc Force & Visualisation</h3>
+                    <div class="exercise-item">
+                        <h4>Back Squat 5x5 @80%</h4>
+                        <div class="exercise-details">Repos 2min entre séries</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Squats lestés avec sac à dos ou haltères</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Développé couché 5x5 @80%</h4>
+                        <div class="exercise-details">Repos 2min entre séries</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Pompes lestées ou pompes surélevées</div>
+                    </div>
                     <div class="exercise-item">
                         <h4>Visualisation sous fatigue</h4>
-                        <div class="exercise-details">Pendant les repos entre séries</div>
+                        <div class="exercise-details">Pendant les repos entre séries, visualiser des actions de match</div>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>Nutrition Timing</h3>
+                    <h3>MARDI – Cardio & Skills</h3>
                     <div class="exercise-item">
-                        <h4>Carb cycling</h4>
-                        <div class="exercise-details">Pour maximiser l'énergie</div>
+                        <h4>Carb cycling (nutrition)</h4>
+                        <div class="exercise-details">Adapter les apports glucidiques selon l'intensité de la journée</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>HIIT Rugby</h4>
+                        <div class="exercise-details">8x30s all-out / 30s repos : burpees, sprints, battle ropes</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Burpees, sprints sur place, shadow boxing</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Skills individuels</h4>
+                        <div class="exercise-details">Passes, jeu au pied, réception</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Passes contre un mur, jonglage, jeu au pied sur cible</div>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>Cold Exposure</h3>
+                    <h3>MERCREDI – Force & Endurance</h3>
+                    <div class="exercise-item">
+                        <h4>Deadlift 5x5 @80%</h4>
+                        <div class="exercise-details">Repos 2min entre séries</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Soulevé de terre avec haltères ou sac</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Endurance Rugby</h4>
+                        <div class="exercise-details">20min course à 75% VMA ou 10x200m sprints</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sprints sur place, escaliers, ou footing</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>JEUDI – Récupération Active</h3>
+                    <div class="exercise-item">
+                        <h4>Repos actif</h4>
+                        <div class="exercise-details">Marche, natation, stretching, mobilité</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>VENDREDI – Bloc Puissance & Rugby</h3>
+                    <div class="exercise-item">
+                        <h4>Bloc identique à lundi</h4>
+                        <div class="exercise-details">Répéter le bloc force & visualisation du lundi</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>SAMEDI – Cold Exposure & Challenge</h3>
                     <div class="exercise-item">
                         <h4>Douches froides post-training</h4>
-                        <div class="exercise-details">Résilience mentale</div>
+                        <div class="exercise-details">Résilience mentale et récupération</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Challenge personnel</h4>
+                        <div class="exercise-details">Enchaînement d'exercices rugby, HIIT, ou skills</div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Circuit : 1 min burpees, 1 min bear crawl, 1 min sprints, 1 min shadow rugby, 1 min repos, répéter 3x</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>DIMANCHE – Récupération</h3>
+                    <div class="exercise-item">
+                        <h4>Repos complet ou marche active</h4>
+                        <div class="exercise-details">Étirements, hydratation, préparation mentale</div>
                     </div>
                 </div>
             </div>
@@ -602,24 +740,11 @@
 
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week8')">
-                Semaine 8 : Domination Finale
+                Semaine 8 : Programme Complet Domination Finale
             </div>
             <div id="week8" class="week-content">
                 <div class="day-card">
-                    <h3>Principes Semaine 8</h3>
-                    <div class="exercise-item">
-                        <h4>Règles d'Or</h4>
-                        <div class="exercise-details">
-                            • Volume -30% vs Semaine 7<br>
-                            • Intensité maintenue à 95-100%<br>
-                            • Récupération prioritaire<br>
-                            • Confiance maximale
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>LUNDI S8 : Rappel Force + Vitesse</h3>
+                    <h3>LUNDI – Rappel Force + Vitesse</h3>
                     <div class="exercise-item">
                         <h4>Programme Léger</h4>
                         <div class="exercise-details">
@@ -627,11 +752,11 @@
                             • Plyométrie légère<br>
                             • Sprints courts
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Squats lestés ou sautés, pompes explosives, sprints sur place ou départ couché</div>
                     </div>
                 </div>
-
                 <div class="day-card">
-                    <h3>MARDI S8 : Match Tactique</h3>
+                    <h3>MARDI – Match Tactique</h3>
                     <div class="exercise-item">
                         <h4>Simulation (60 min)</h4>
                         <div class="exercise-details">
@@ -639,11 +764,11 @@
                             • Focus exécution parfaite<br>
                             • Gestion de l'effort
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Circuit : 5 min shadow rugby (enchaînement passes, feintes, accélérations), 2 min repos, répéter 4x</div>
                     </div>
                 </div>
-
                 <div class="day-card">
-                    <h3>MERCREDI S8 : Récupération Totale</h3>
+                    <h3>MERCREDI – Récupération Totale</h3>
                     <div class="exercise-item">
                         <h4>Programme Récup</h4>
                         <div class="exercise-details">
@@ -651,11 +776,11 @@
                             • Cryothérapie<br>
                             • Mental coaching
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Auto-massage, bain froid, relaxation guidée</div>
                     </div>
                 </div>
-
                 <div class="day-card">
-                    <h3>JEUDI S8 : Activation Finale</h3>
+                    <h3>JEUDI – Activation Finale</h3>
                     <div class="exercise-item">
                         <h4>30 min seulement</h4>
                         <div class="exercise-details">
@@ -663,11 +788,11 @@
                             • Vitesse gestuelle<br>
                             • Activation neurale
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Shadow rugby, drills d'appuis rapides, sprints courts</div>
                     </div>
                 </div>
-
                 <div class="day-card">
-                    <h3>VENDREDI S8 : Repos + Visualisation</h3>
+                    <h3>VENDREDI – Repos + Visualisation</h3>
                     <div class="exercise-item">
                         <h4>Préparation Finale</h4>
                         <div class="exercise-details">
@@ -675,11 +800,11 @@
                             • Nutrition parfaite<br>
                             • Organisation logistique
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Visualisation guidée, planification repas, check matériel</div>
                     </div>
                 </div>
-
                 <div class="day-card">
-                    <h3>WEEKEND S8 : SHOWTIME 🏆</h3>
+                    <h3>WEEKEND – SHOWTIME 🏆</h3>
                     <div class="exercise-item">
                         <h4>C'est l'heure !</h4>
                         <div class="exercise-details">
@@ -687,6 +812,7 @@
                             • Domination physique et mentale<br>
                             • Devenir le joueur indispensable
                         </div>
+                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Test personnel : circuit complet (burpees, sprints, shadow rugby, skills), puis auto-évaluation et récupération</div>
                     </div>
                 </div>
             </div>

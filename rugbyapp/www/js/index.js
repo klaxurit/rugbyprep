@@ -235,3 +235,32 @@ document.addEventListener('touchend', function(e) {
         }
     }
 });
+
+// --- AUTHENTIFICATION FIREBASE ---
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    document.getElementById('auth-section').style.display = 'none';
+    document.getElementById('logout-btn').style.display = '';
+    document.querySelector('.header').style.display = '';
+    document.querySelectorAll('.content, .bottom-nav, .quick-access').forEach(e => e.style.display = '');
+  } else {
+    document.getElementById('auth-section').style.display = '';
+    document.getElementById('logout-btn').style.display = 'none';
+    document.querySelector('.header').style.display = 'none';
+    document.querySelectorAll('.content, .bottom-nav, .quick-access').forEach(e => e.style.display = 'none');
+  }
+});
+
+window.login = function() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .catch(e => document.getElementById('auth-error').innerText = e.message);
+}
+
+window.signup = function() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .catch(e => document.getElementById('auth-error').innerText = e.message);
+}
