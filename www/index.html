@@ -16,7 +16,7 @@
         apiKey: "AIzaSyCgpzlUeQdS7b0EKceR8Ea6TGv3N5IPuDo",
         authDomain: "rugbyprep-88747.firebaseapp.com",
         projectId: "rugbyprep-88747",
-        storageBucket: "rugbyprep-88747.firebasestorage.app",
+        storageBucket: "rugbyprep-88747.appspot.com",
         messagingSenderId: "911067593685",
         appId: "1:911067593685:web:8a655a020ab791b3f19b5c",
         measurementId: "G-4T25DRSVTM"
@@ -24,22 +24,78 @@
       firebase.initializeApp(firebaseConfig);
     </script>
 </head>
-<body>
-    <div id="auth-section" style="max-width:400px;margin:40px auto;display:none;">
-      <h2>Connexion</h2>
-      <input type="email" id="email" placeholder="Email" style="width:100%;margin-bottom:10px;">
-      <input type="password" id="password" placeholder="Mot de passe" style="width:100%;margin-bottom:10px;">
-      <button onclick="login()" style="width:49%;">Connexion</button>
-      <button onclick="signup()" style="width:49%;">Créer un compte</button>
-      <div id="auth-error" style="color:red;margin-top:10px;"></div>
+<body style="background: #18191a; color: #fff; min-height: 100vh; margin: 0;">
+    <div id="auth-section">
+      <h1 style="font-size:2.2rem;font-weight:900;letter-spacing:1px;margin-bottom:32px;text-align:center;">RugbyPrep</h1>
+      <h2 style="font-size:1.2rem;font-weight:700;margin-bottom:18px;text-align:center;">Connexion</h2>
+      <input type="email" id="email" placeholder="Email" style="width:100%;margin-bottom:12px;padding:12px 14px;border-radius:8px;border:none;background:#232526;color:#fff;font-size:1rem;">
+      <input type="password" id="password" placeholder="Mot de passe" style="width:100%;margin-bottom:18px;padding:12px 14px;border-radius:8px;border:none;background:#232526;color:#fff;font-size:1rem;">
+      <div style="display:flex;gap:10px;width:100%;margin-bottom:10px;">
+        <button onclick="login()" style="flex:1;padding:12px 0;border-radius:8px;border:none;background:#ff4757;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;">Connexion</button>
+        <button onclick="signup()" style="flex:1;padding:12px 0;border-radius:8px;border:none;background:#636e72;color:#fff;font-weight:700;font-size:1rem;cursor:pointer;">Créer un compte</button>
+      </div>
+      <div id="auth-error" style="color:#ff4757;margin-top:10px;text-align:center;"></div>
+    </div>
+    <div id="customize-section" style="display:none;max-width:400px;margin:40px auto;">
+      <h2>Personnalise ton appli</h2>
+      <label>Ton prénom ou pseudo :<br><input id="username" type="text" style="width:100%;margin-bottom:10px;"></label>
+      <label>Âge :<br><input id="age" type="number" min="10" max="80" style="width:100%;margin-bottom:10px;"></label>
+      <label>Taille (cm) :<br><input id="height" type="number" min="120" max="220" style="width:100%;margin-bottom:10px;"></label>
+      <label>Poids (kg) :<br><input id="weight" type="number" min="30" max="180" style="width:100%;margin-bottom:10px;"></label>
+      <label>Poste joué :<br>
+        <select id="position" style="width:100%;margin-bottom:10px;">
+          <option value="">Choisir…</option>
+          <option value="pilier">Pilier</option>
+          <option value="talonneur">Talonneur</option>
+          <option value="2e ligne">2e ligne</option>
+          <option value="3e ligne">3e ligne</option>
+          <option value="mêlée">Demi de mêlée</option>
+          <option value="ouvreur">Ouvreur</option>
+          <option value="centre">Centre</option>
+          <option value="ailier">Ailier</option>
+          <option value="arrière">Arrière</option>
+        </select>
+      </label>
+      <label for="level">Niveau</label>
+      <select id="level" name="level" required>
+        <option value="">Sélectionner…</option>
+        <option value="Pro">Pro</option>
+        <option value="Nationale">Nationale</option>
+        <option value="Fédérale">Fédérale</option>
+        <option value="Régionale">Régionale</option>
+      </select>
+      <label>Objectif principal :<br>
+        <select id="goal" style="width:100%;margin-bottom:10px;">
+          <option value="">Choisir…</option>
+          <option value="force">Force</option>
+          <option value="vitesse">Vitesse</option>
+          <option value="endurance">Endurance</option>
+          <option value="puissance">Puissance</option>
+          <option value="polyvalence">Polyvalence</option>
+        </select>
+      </label>
+      <label>Couleur principale :<br>
+        <input id="main-color" type="color" value="#ff4757" style="width:60px;height:36px;vertical-align:middle;">
+        <span id="main-color-palette"></span>
+      </label><br>
+      <label>Couleur secondaire :<br>
+        <input id="secondary-color" type="color" value="#ffc312" style="width:60px;height:36px;vertical-align:middle;">
+        <span id="secondary-color-palette"></span>
+      </label><br>
+      <button onclick="validateCustomization()" style="margin-top:20px;width:100%;">Valider</button>
+    </div>
+    <div id="lang-switch" style="position:fixed;bottom:24px;left:0;right:0;display:flex;justify-content:center;gap:18px;z-index:10;">
+      <button onclick="setLang('fr')" style="background:none;border:none;cursor:pointer;"><img src="https://flagcdn.com/fr.svg" alt="Français" style="width:32px;height:22px;border-radius:4px;"></button>
+      <button onclick="setLang('en')" style="background:none;border:none;cursor:pointer;"><img src="https://flagcdn.com/gb.svg" alt="English" style="width:32px;height:22px;border-radius:4px;"></button>
     </div>
     <button id="logout-btn" onclick="firebase.auth().signOut()" style="display:none;position:fixed;top:10px;right:10px;z-index:999;">Déconnexion</button>
-    <div class="header">
+
+    <!-- Les éléments du programme (header, phase-selector, etc.) doivent être masqués par défaut et affichés uniquement si l'utilisateur est connecté -->
+    <div class="header" style="display:none;">
         <h1>🏉 Rugby Training Pro</h1>
         <div style="font-size: 14px; opacity: 0.9;">Programme Intersaison Complet</div>
     </div>
-
-    <div class="phase-selector">
+    <div class="phase-selector" style="display:none;">
         <button class="phase-btn active" onclick="showPhase('phase1')">Phase 1<br><small>Sem 1-3</small></button>
         <button class="phase-btn" onclick="showPhase('phase2')">Phase 2<br><small>Sem 4-6</small></button>
         <button class="phase-btn" onclick="showPhase('phase3')">Phase 3<br><small>Sem 7-8</small></button>
@@ -50,128 +106,171 @@
     </div>
 
     <!-- PHASE 1 -->
-    <div id="phase1" class="content active">
+    <div id="phase1" class="content active" style="display:none;">
         <div class="phase-description">
             <h3>FONDATIONS EXPLOSIVES</h3>
             <p>Construire la base de ta domination physique</p>
         </div>
-
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week1')">
                 Semaine 1 : Éveil Neuromusculaire
             </div>
             <div id="week1" class="week-content">
-                <div class="day-card">
+                <div class="day-card" id="lundi-lower-body">
                     <h3>LUNDI - Puissance Lower Body</h3>
-                    <div class="exercise-item">
-                        <h4>Échauffement Dynamique (15 min)</h4>
-                        <div class="exercise-details">
-                            • Mobilité hanches/chevilles<br>
-                            • Activation glutes (pont, clamshell)<br>
-                            • Bear crawl + Spider walk
-                        </div>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Squat lourd (Force)</h4>
+                        <div class="exercise-details">5x5 @85% (barre)</div>
                     </div>
-                    <div class="exercise-item">
-                        <h4>Box Jump progressifs</h4>
-                        <div class="exercise-details">5x3 reps - Hauteur croissante</div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Box Jump + Power Clean (Puissance)</h4>
+                        <div class="exercise-details">5x3 box jumps + 4x4 power clean</div>
                     </div>
-                    <div class="exercise-item">
-                        <h4>Squat avec bande élastique</h4>
-                        <div class="exercise-details">4x6 @70% - Explosif en montée</div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Sprints courts (Vitesse)</h4>
+                        <div class="exercise-details">8x20m départ arrêté, récup 1min</div>
                     </div>
-                    <div class="exercise-item">
-                        <h4>Bulgarian Split Squat sautés</h4>
-                        <div class="exercise-details">3x5/jambe</div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>HIIT Lower Body (Endurance)</h4>
+                        <div class="exercise-details">30s squats + 30s fentes alternées x 8</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Mobility Flow (Mobilité)</h4>
+                        <div class="exercise-details">15 min mobilité hanches/chevilles</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Gainage + proprioception (Prévention)</h4>
+                        <div class="exercise-details">3x1min gainage, 3x1min équilibre sur bosu</div>
                     </div>
                     <div class="exercise-item">
                         <h4>Rowing inversé explosif</h4>
                         <div class="exercise-details">4x6 reps</div>
                     </div>
-                    <div class="exercise-item">
-                        <h4>Finisher "Ruck & Roll" (10 min)</h4>
-                        <div class="exercise-details">
-                            10 burpees → 20m sprint → 10 squats jump → 20m bear crawl<br>
-                            <strong>4 tours, repos 90s</strong>
-                        </div>
-                    </div>
                 </div>
-
-                <div class="day-card">
+                <div class="day-card" id="mardi-mental">
                     <h3>MARDI - Conditionnement Mental</h3>
-                    <div class="exercise-item">
-                        <h4>Matin : Yoga + Méditation</h4>
-                        <div class="exercise-details">30 min yoga dynamique + 10 min méditation</div>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Gainage lourd (Force)</h4>
+                        <div class="exercise-details">3x1min gainage lesté</div>
+                    </div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Plyométrie mentale (Puissance)</h4>
+                        <div class="exercise-details">5x10s visualisation explosive + 5x10s sprints sur place</div>
+                    </div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Réactivité mentale (Vitesse)</h4>
+                        <div class="exercise-details">Jeu de réaction : tape sur signal sonore/lumineux</div>
+                    </div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>Méditation longue (Endurance)</h4>
+                        <div class="exercise-details">20 min méditation pleine conscience</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Yoga mobilité (Mobilité)</h4>
+                        <div class="exercise-details">30 min yoga mobilité</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Prévention mentale (Prévention)</h4>
+                        <div class="exercise-details">10 min cohérence cardiaque + 10 min visualisation positive</div>
                     </div>
                     <div class="exercise-item">
                         <h4>Après-midi : "Warrior Mindset"</h4>
-                        <div class="exercise-details">
-                            • 5x500m rameur @85% (repos 2 min)<br>
-                            • Entre chaque : 10 pompes + planche 30s<br>
-                            • Finir par visualisation tactique (10 min)
-                        </div>
+                        <div class="exercise-details">• 5x500m rameur @85% (repos 2 min)<br>• Entre chaque : 10 pompes + planche 30s<br>• Finir par visualisation tactique (10 min)</div>
                     </div>
                 </div>
-
-                <div class="day-card">
+                <div class="day-card" id="mercredi-upper-body">
                     <h3>MERCREDI - Upper Body Domination</h3>
-                    <div class="exercise-item">
-                        <h4>Développé couché avec chaînes</h4>
-                        <div class="exercise-details">5x5 @75%</div>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Développé couché lourd (Force)</h4>
+                        <div class="exercise-details">5x5 @85%</div>
+                    </div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Développé couché explosif (Puissance)</h4>
+                        <div class="exercise-details">6x3 @60% + élastique</div>
+                    </div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Pompes claquées (Vitesse)</h4>
+                        <div class="exercise-details">5x8 pompes claquées</div>
+                    </div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>Circuit haut du corps (Endurance)</h4>
+                        <div class="exercise-details">4x (10 pompes + 10 tractions + 20 dips)</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Mobilité épaules (Mobilité)</h4>
+                        <div class="exercise-details">15 min mobilité épaules/omoplates</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Renfo coiffe des rotateurs (Prévention)</h4>
+                        <div class="exercise-details">3x15 rotateurs externes avec élastique</div>
                     </div>
                     <div class="exercise-item">
                         <h4>Tractions lestées</h4>
                         <div class="exercise-details">4x6</div>
                     </div>
-                    <div class="exercise-item">
-                        <h4>Push Press</h4>
-                        <div class="exercise-details">4x4 @80%</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Circuit Core Anti-Rotation</h4>
-                        <div class="exercise-details">
-                            • Pallof press : 3x12/côté<br>
-                            • Dead bugs : 3x10<br>
-                            • Bird dogs : 3x10/côté
-                        </div>
-                    </div>
                 </div>
-
-                <div class="day-card">
+                <div class="day-card" id="jeudi-recup">
                     <h3>JEUDI - Récupération Active Intelligente</h3>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Étirements post-force (Force)</h4>
+                        <div class="exercise-details">20 min stretching post-séance force</div>
+                    </div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Massage percussion (Puissance)</h4>
+                        <div class="exercise-details">10 min pistolet massage + 10 min foam roll</div>
+                    </div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Récupération active rapide (Vitesse)</h4>
+                        <div class="exercise-details">10 min vélo + 10 min marche rapide</div>
+                    </div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>Récupération longue (Endurance)</h4>
+                        <div class="exercise-details">30 min nage libre + 15 min sauna</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Routine mobilité complète (Mobilité)</h4>
+                        <div class="exercise-details">20 min mobilité globale</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Proprioception cheville/genou (Prévention)</h4>
+                        <div class="exercise-details">3x1min équilibre sur bosu par jambe</div>
+                    </div>
                     <div class="exercise-item">
-                        <h4>Programme Récupération</h4>
-                        <div class="exercise-details">
-                            • Piscine : 30 min nage libre<br>
-                            • Sauna/Bain froid (contrast therapy)<br>
-                            • Travail proprioception : 15 min
-                        </div>
+                        <h4>Travail proprioception</h4>
+                        <div class="exercise-details">15 min</div>
                     </div>
                 </div>
-
-                <div class="day-card">
+                <div class="day-card" id="vendredi-skills">
                     <h3>VENDREDI - Skills & Drills</h3>
-                    <div class="exercise-item">
-                        <h4>Matinée : Technique individuelle</h4>
-                        <div class="exercise-details">
-                            • Passes contre mur (200 passes variées)<br>
-                            • Footwork ladder drills<br>
-                            • Catches hautes avec perturbation
-                        </div>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Passes lestées (Force)</h4>
+                        <div class="exercise-details">100 passes avec medecine ball</div>
+                    </div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Passes explosives (Puissance)</h4>
+                        <div class="exercise-details">100 passes rapides, 10m max</div>
+                    </div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Drills d'agilité (Vitesse)</h4>
+                        <div class="exercise-details">10 min échelle de rythme + 10 min plots</div>
+                    </div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>Skills en circuit (Endurance)</h4>
+                        <div class="exercise-details">200 passes variées en circuit continu</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Skills mobilité (Mobilité)</h4>
+                        <div class="exercise-details">Passes en fente, passes en squat profond</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Skills prévention (Prévention)</h4>
+                        <div class="exercise-details">Passes à une main, travail d'équilibre</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>Power Clean</h4>
-                        <div class="exercise-details">6x3 @75%</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Sled Push/Pull</h4>
-                        <div class="exercise-details">6x20m - Charge lourde</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Battle Ropes</h4>
-                        <div class="exercise-details">6x20s all-out</div>
+                        <h4>Footwork ladder drills</h4>
+                        <div class="exercise-details">Agilité, 10 min</div>
                     </div>
                 </div>
-
                 <div class="day-card">
                     <h3>SAMEDI - Challenge Day</h3>
                     <div class="exercise-item">
@@ -186,7 +285,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="day-card">
                     <h3>DIMANCHE - Récupération</h3>
                     <div class="exercise-item">
@@ -200,433 +298,288 @@
                 </div>
             </div>
         </div>
-
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week2')">
-                Semaines 2-3 : Programme Complet Intensifié
+                Semaines 2-3 : Intensification Progressive
             </div>
             <div id="week2" class="week-content">
                 <div class="day-card">
-                    <h3>LUNDI - Puissance Lower Body</h3>
+                    <h3>Nouveautés Semaine 2</h3>
                     <div class="exercise-item">
-                        <h4>Échauffement Dynamique (15 min)</h4>
-                        <div class="exercise-details">
-                            • Mobilité hanches/chevilles<br>
-                            • Activation glutes (pont, clamshell)<br>
-                            • Bear crawl + Spider walk
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Box Jump progressifs</h4>
-                        <div class="exercise-details">5x3 reps – Hauteur croissante</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Squat avec bande élastique</h4>
-                        <div class="exercise-details">4x6 @70% – Explosif en montée</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Bulgarian Split Squat sautés</h4>
-                        <div class="exercise-details">3x5/jambe</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Complexe Olympique</h4>
-                        <div class="exercise-details">Clean + Front Squat + Push Press (3 répétitions enchaînées, 4 séries)</div>
+                        <h4>Complexes Olympiques</h4>
+                        <div class="exercise-details">Clean + Front Squat + Push Press</div>
                     </div>
                     <div class="exercise-item">
                         <h4>Sprints en côte</h4>
-                        <div class="exercise-details">6x40m – Récup complète</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sprints plats avec résistance élastique ou départ couché</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Rowing inversé explosif</h4>
-                        <div class="exercise-details">4x6 reps</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Finisher "Ruck & Roll" (10 min)</h4>
-                        <div class="exercise-details">
-                            10 burpees → 20m sprint → 10 squats jump → 20m bear crawl<br>
-                            <strong>4 tours, repos 90s</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>MARDI – Conditionnement Mental & Agilité</h3>
-                    <div class="exercise-item">
-                        <h4>Matin : Yoga + Méditation</h4>
-                        <div class="exercise-details">30 min yoga dynamique + 10 min méditation</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Après-midi : "Warrior Mindset"</h4>
-                        <div class="exercise-details">
-                            • 5x500m rameur @85% (repos 2 min)<br>
-                            • Entre chaque : 10 pompes + planche 30s<br>
-                            • Finir par visualisation tactique (10 min)
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Plyométrie avancée</h4>
-                        <div class="exercise-details">Depth jumps depuis 60cm</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sauts en contrebas d'un banc ou d'une marche</div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>MERCREDI – Upper Body Domination</h3>
-                    <div class="exercise-item">
-                        <h4>Développé couché avec chaînes</h4>
-                        <div class="exercise-details">5x5 @75%</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Tractions lestées</h4>
-                        <div class="exercise-details">4x6</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Push Press</h4>
-                        <div class="exercise-details">4x4 @80%</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Dumbbell Row</h4>
-                        <div class="exercise-details">3x10 (par bras)</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Clap Push-ups</h4>
-                        <div class="exercise-details">3x8</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Circuit Core Anti-Rotation</h4>
-                        <div class="exercise-details">
-                            • Pallof press : 3x12/côté<br>
-                            • Dead bugs : 3x10<br>
-                            • Bird dogs : 3x10/côté
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>JEUDI – Récupération Active Intelligente</h3>
-                    <div class="exercise-item">
-                        <h4>Programme Récupération</h4>
-                        <div class="exercise-details">
-                            • Piscine : 30 min nage libre<br>
-                            • Sauna/Bain froid (contrast therapy)<br>
-                            • Travail proprioception : 15 min
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Étirements & mobilité</h4>
-                        <div class="exercise-details">Focus hanches, ischios, épaules</div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>VENDREDI – Skills & Drills</h3>
-                    <div class="exercise-item">
-                        <h4>Matinée : Technique individuelle</h4>
-                        <div class="exercise-details">
-                            • Passes contre mur (200 passes variées)<br>
-                            • Footwork ladder drills<br>
-                            • Catches hautes avec perturbation
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Power Clean</h4>
-                        <div class="exercise-details">6x3 @75%</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Sled Push/Pull</h4>
-                        <div class="exercise-details">6x20m – Charge lourde</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Poussée contre un mur ou sprint avec élastique</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Battle Ropes</h4>
-                        <div class="exercise-details">6x20s all-out</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Shadow boxing explosif ou burpees rapides</div>
+                        <div class="exercise-details">6x40m - Récup complète</div>
                     </div>
                     <div class="exercise-item">
                         <h4>Exercices de lutte/combat</h4>
                         <div class="exercise-details">Grappling 3x2 min</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Bear crawl en résistance ou shadow wrestling 3x2 min</div>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>Nouveautés Semaine 3</h3>
+                    <div class="exercise-item">
+                        <h4>Plyométrie avancée</h4>
+                        <div class="exercise-details">Depth jumps depuis 60cm</div>
                     </div>
                     <div class="exercise-item">
                         <h4>Circuits position-spécifiques</h4>
                         <div class="exercise-details">Adapté à ton poste</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Travail d'appuis, changements de direction, feintes</div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>SAMEDI – Challenge Day</h3>
-                    <div class="exercise-item">
-                        <h4>"The Rugby Warrior Test"</h4>
-                        <div class="exercise-details">
-                            • 1000m rameur<br>
-                            • 50 burpees<br>
-                            • 100 squats<br>
-                            • 50 box jumps<br>
-                            • 1000m rameur<br>
-                            <strong>Objectif : < 25 min</strong>
-                        </div>
                     </div>
                     <div class="exercise-item">
                         <h4>Simulation de phases de jeu</h4>
                         <div class="exercise-details">Enchaînements rugby 4x5 min</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Circuit : 30s bear crawl + 30s sprint + 30s burpees + 30s shadow rugby, répéter 4x</div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>DIMANCHE – Récupération</h3>
-                    <div class="exercise-item">
-                        <h4>Programme Repos</h4>
-                        <div class="exercise-details">
-                            • Marche nature 45 min<br>
-                            • Étirements profonds<br>
-                            • Préparation mentale semaine suivante
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- PHASE 2 -->
-    <div id="phase2" class="content">
+    <div id="phase2" class="content" style="display:none;">
         <div class="phase-description">
             <h3>TRANSFORMATION ATHLÉTIQUE</h3>
             <p>Devenir une machine de guerre contrôlée</p>
         </div>
-
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week4')">
-                Semaine 4 : Programme Complet Game-Speed
+                Semaine 4 : Integration Game-Speed
             </div>
             <div id="week4" class="week-content">
-                <div class="day-card">
-                    <h3>LUNDI – Bloc Principal</h3>
-                    <div class="exercise-item">
-                        <h4>A. Activation Explosive (10 min)</h4>
-                        <div class="exercise-details">
-                            • Medicine ball slams<br>
-                            • Lateral bounds<br>
-                            • Reactive agility
-                        </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sauts latéraux rapides, slams simulés avec un sac ou un ballon lesté, parcours d'agilité avec plots ou objets du quotidien</div>
+                <div class="day-card" id="lundi-phase2">
+                    <h3>LUNDI - Bloc Principal</h3>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Back Squat lourd (Force)</h4>
+                        <div class="exercise-details">4x5 @85%</div>
+                    </div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Superset Power Clean + Sauts (Puissance)</h4>
+                        <div class="exercise-details">4x4 power clean + 8 jump squats</div>
+                    </div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Sprints 30m (Vitesse)</h4>
+                        <div class="exercise-details">6x30m départ arrêté, récup 2min</div>
+                    </div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>Circuit Lower Body (Endurance)</h4>
+                        <div class="exercise-details">Squat, fentes, box jump, 3 tours</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Mobility Flow jambes (Mobilité)</h4>
+                        <div class="exercise-details">20 min mobilité hanches/genoux</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Proprioception genoux/chevilles (Prévention)</h4>
+                        <div class="exercise-details">3x1min équilibre sur bosu</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>B. Force-Puissance Superset</h4>
-                        <div class="exercise-details">
-                            1. Back Squat 4x3 @85% → 8 jump squats<br>
-                            2. Bench Press 4x3 @85% → 8 clap push-ups<br>
-                            3. Deadlift 4x3 @85% → 6 broad jumps
-                        </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Si pas de barre : squats sautés lestés (sac à dos), pompes explosives, soulevé de terre avec haltères ou sac, sauts en longueur sans matériel</div>
+                        <h4>Activation Explosive</h4>
+                        <div class="exercise-details">Medicine ball slams, lateral bounds, reactive agility</div>
+                    </div>
+                </div>
+                <div class="day-card" id="mercredi-phase2">
+                    <h3>MERCREDI - Game Speed & Agilité</h3>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Tractions lestées (Force)</h4>
+                        <div class="exercise-details">4x6 lesté</div>
+                    </div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Plyométrie latérale (Puissance)</h4>
+                        <div class="exercise-details">5x6 bounds latéraux</div>
+                    </div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Agilité échelle (Vitesse)</h4>
+                        <div class="exercise-details">10 min drills échelle de rythme</div>
+                    </div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>Navettes longues (Endurance)</h4>
+                        <div class="exercise-details">6x(60m-40m-20m) récup 1min</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Mobility Flow haut du corps (Mobilité)</h4>
+                        <div class="exercise-details">15 min mobilité épaules/poignets</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Prévention épaules (Prévention)</h4>
+                        <div class="exercise-details">3x15 rotateurs externes élastique</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>C. Conditionnement Spécifique Rugby (20 min)</h4>
-                        <div class="exercise-details">
-                            • 30s combat au sol (grappling)<br>
-                            • 15s sprint<br>
-                            • 30s bear crawl avec sac<br>
-                            • 15s repos<br>
-                            <strong>Répéter 8 fois</strong>
-                        </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> 30s shadow wrestling ou burpees, 15s sprint, 30s bear crawl, 15s repos, répéter 8x</div>
+                        <h4>Reactive agility</h4>
+                        <div class="exercise-details">Drills de réaction, plots, signaux</div>
+                    </div>
+                </div>
+                <div class="day-card" id="vendredi-phase2">
+                    <h3>VENDREDI - Skills & Explosivité</h3>
+                    <div class="exercise-item variante-force" style="display:none;">
+                        <h4>Développé militaire lourd (Force)</h4>
+                        <div class="exercise-details">4x6 @80%</div>
+                    </div>
+                    <div class="exercise-item variante-puissance" style="display:none;">
+                        <h4>Medecine Ball Throw (Puissance)</h4>
+                        <div class="exercise-details">5x5 lancers explosifs</div>
+                    </div>
+                    <div class="exercise-item variante-vitesse" style="display:none;">
+                        <h4>Drills d'accélération (Vitesse)</h4>
+                        <div class="exercise-details">6x10m, 6x20m, récup 1min</div>
+                    </div>
+                    <div class="exercise-item variante-endurance" style="display:none;">
+                        <h4>Circuit skills (Endurance)</h4>
+                        <div class="exercise-details">Passes, sprints, burpees, 4 tours</div>
+                    </div>
+                    <div class="exercise-item variante-mobilite" style="display:none;">
+                        <h4>Skills mobilité (Mobilité)</h4>
+                        <div class="exercise-details">Passes en fente, passes rotation tronc</div>
+                    </div>
+                    <div class="exercise-item variante-prevention" style="display:none;">
+                        <h4>Skills prévention (Prévention)</h4>
+                        <div class="exercise-details">Passes à une main, travail d'équilibre</div>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Battle Ropes</h4>
+                        <div class="exercise-details">6x20s all-out</div>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>MARDI – Cardio & Mobilité</h3>
+                    <h3>SAMEDI - Endurance & Rugby Skills</h3>
                     <div class="exercise-item">
-                        <h4>Cardio Intervalles</h4>
-                        <div class="exercise-details">10x200m @90% (repos 1min)</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sprints sur place ou escaliers si pas de piste</div>
+                        <h4>Fartlek Rugby</h4>
+                        <div class="exercise-details">4x8 min (2 min allure modérée, 1 min sprint, 1 min marche, 2 min skills passes, 2 min jogging)</div>
                     </div>
                     <div class="exercise-item">
-                        <h4>Mobilité complète</h4>
-                        <div class="exercise-details">20 min stretching dynamique et mobilité articulaire</div>
-                    </div>
-                </div>
-                <div class="day-card">
-                    <h3>MERCREDI – Skills & Technique</h3>
-                    <div class="exercise-item">
-                        <h4>Technique individuelle</h4>
-                        <div class="exercise-details">Passes, jeu au pied, réception, feintes</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Passes contre un mur, jonglage, jeu au pied sur cible, réception de balles lancées en l'air</div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Travail d'appuis</h4>
-                        <div class="exercise-details">Ladder drills, changements de direction, plots</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Utilise des objets du quotidien comme plots</div>
+                        <h4>Skills sous fatigue</h4>
+                        <div class="exercise-details">3x10 passes longues, 3x10 passes courtes, 3x10 passes après sprint</div>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>JEUDI – Récupération Active</h3>
+                    <h3>DIMANCHE - Récupération Active</h3>
                     <div class="exercise-item">
-                        <h4>Repos actif</h4>
-                        <div class="exercise-details">Marche, natation, vélo léger, stretching</div>
+                        <h4>Marche ou vélo doux</h4>
+                        <div class="exercise-details">45 min</div>
                     </div>
-                </div>
-                <div class="day-card">
-                    <h3>VENDREDI – Bloc Puissance & Rugby</h3>
                     <div class="exercise-item">
-                        <h4>Bloc identique à lundi</h4>
-                        <div class="exercise-details">Répéter le bloc principal du lundi, en adaptant l'intensité selon la fatigue</div>
-                    </div>
-                </div>
-                <div class="day-card">
-                    <h3>SAMEDI – Challenge Rugby</h3>
-                    <div class="exercise-item">
-                        <h4>Jeu réduit ou circuit rugby</h4>
-                        <div class="exercise-details">Match amical, circuit rugby, ou challenge personnel (enchaînements d'exercices rugby)</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Circuit : 1 min burpees, 1 min bear crawl, 1 min sprints, 1 min shadow rugby, 1 min repos, répéter 3x</div>
-                    </div>
-                </div>
-                <div class="day-card">
-                    <h3>DIMANCHE – Récupération</h3>
-                    <div class="exercise-item">
-                        <h4>Repos complet ou marche active</h4>
-                        <div class="exercise-details">Étirements, hydratation, préparation mentale</div>
+                        <h4>Étirements profonds</h4>
+                        <div class="exercise-details">20 min</div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="week-container">
-            <div class="week-header" onclick="toggleWeek('week5')">
-                Semaines 5-6 : Programme Complet Innovations
+            <div class="week-header" onclick="toggleWeek('week5-6')">
+                Semaines 5-6 : Consolidation & Puissance
             </div>
-            <div id="week5" class="week-content">
+            <div id="week5-6" class="week-content">
                 <div class="day-card">
-                    <h3>LUNDI – Bloc Force & Visualisation</h3>
+                    <h3>LUNDI - Force bas du corps</h3>
                     <div class="exercise-item">
-                        <h4>Back Squat 5x5 @80%</h4>
-                        <div class="exercise-details">Repos 2min entre séries</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Squats lestés avec sac à dos ou haltères</div>
+                        <h4>Squat : 4x6 reps à 80% 1RM</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>Développé couché 5x5 @80%</h4>
-                        <div class="exercise-details">Repos 2min entre séries</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Pompes lestées ou pompes surélevées</div>
+                        <h4>Soulevé de terre jambes tendues : 3x8 reps</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>Visualisation sous fatigue</h4>
-                        <div class="exercise-details">Pendant les repos entre séries, visualiser des actions de match</div>
+                        <h4>Fentes marchées lestées : 3x10 reps/jambe</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Gainage latéral : 3x40s/côté</h4>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>MARDI – Cardio & Skills</h3>
+                    <h3>MARDI - Vitesse & Agilité</h3>
                     <div class="exercise-item">
-                        <h4>Carb cycling (nutrition)</h4>
-                        <div class="exercise-details">Adapter les apports glucidiques selon l'intensité de la journée</div>
+                        <h4>Sprints 20m : 6x (récup 1')</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>HIIT Rugby</h4>
-                        <div class="exercise-details">8x30s all-out / 30s repos : burpees, sprints, battle ropes</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Burpees, sprints sur place, shadow boxing</div>
+                        <h4>Ateliers d'appuis (échelle) : 4x30s</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>Skills individuels</h4>
-                        <div class="exercise-details">Passes, jeu au pied, réception</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Passes contre un mur, jonglage, jeu au pied sur cible</div>
+                        <h4>Changement de direction : 4x5 reps</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Jeu réduit : 15 min</h4>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>MERCREDI – Force & Endurance</h3>
+                    <h3>MERCREDI - Haut du corps & Explosivité</h3>
                     <div class="exercise-item">
-                        <h4>Deadlift 5x5 @80%</h4>
-                        <div class="exercise-details">Repos 2min entre séries</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Soulevé de terre avec haltères ou sac</div>
+                        <h4>Développé couché : 4x8 reps à 75% 1RM</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>Endurance Rugby</h4>
-                        <div class="exercise-details">20min course à 75% VMA ou 10x200m sprints</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Sprints sur place, escaliers, ou footing</div>
+                        <h4>Tractions pronation : 4x6 reps</h4>
                     </div>
-                </div>
-                <div class="day-card">
-                    <h3>JEUDI – Récupération Active</h3>
                     <div class="exercise-item">
-                        <h4>Repos actif</h4>
-                        <div class="exercise-details">Marche, natation, stretching, mobilité</div>
+                        <h4>Pompes explosives : 3x10 reps</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Lancer de medecine ball : 3x8 reps</h4>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>VENDREDI – Bloc Puissance & Rugby</h3>
+                    <h3>JEUDI - Récupération & Mobilité</h3>
                     <div class="exercise-item">
-                        <h4>Bloc identique à lundi</h4>
-                        <div class="exercise-details">Répéter le bloc force & visualisation du lundi</div>
+                        <h4>Routine mobilité complète : 20 min</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Étirements actifs : 15 min</h4>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>SAMEDI – Cold Exposure & Challenge</h3>
+                    <h3>VENDREDI - Skills & Endurance</h3>
                     <div class="exercise-item">
-                        <h4>Douches froides post-training</h4>
-                        <div class="exercise-details">Résilience mentale et récupération</div>
+                        <h4>Skills passes : 10 min</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>Challenge personnel</h4>
-                        <div class="exercise-details">Enchaînement d'exercices rugby, HIIT, ou skills</div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Circuit : 1 min burpees, 1 min bear crawl, 1 min sprints, 1 min shadow rugby, 1 min repos, répéter 3x</div>
+                        <h4>Jeu au pied : 10 min</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Circuit endurance : 3x (400m course, 20 burpees, 20 squats)</h4>
                     </div>
                 </div>
                 <div class="day-card">
-                    <h3>DIMANCHE – Récupération</h3>
+                    <h3>SAMEDI - Simulation Match</h3>
                     <div class="exercise-item">
-                        <h4>Repos complet ou marche active</h4>
-                        <div class="exercise-details">Étirements, hydratation, préparation mentale</div>
+                        <h4>Match d'entraînement ou opposition dirigée : 2x30 min</h4>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>DIMANCHE - Récupération</h3>
+                    <div class="exercise-item">
+                        <h4>Repos complet ou marche douce 45 min</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- PHASE 3 -->
-    <div id="phase3" class="content">
+    <div id="phase3" class="content" style="display:none;">
         <div class="phase-description">
             <h3>PIC DE FORME</h3>
             <p>Affûtage et domination</p>
         </div>
-
         <div class="week-container">
             <div class="week-header" onclick="toggleWeek('week7')">
-                Semaine 7 : Affûtage Intelligent
+                Semaine 7 : Pic d'intensité
             </div>
             <div id="week7" class="week-content">
                 <div class="day-card">
-                    <h3>LUNDI - Force & Explosivité</h3>
+                    <h3>LUNDI – Force max</h3>
                     <div class="exercise-item">
-                        <h4>Échauffement Activation Neurale (15 min)</h4>
-                        <div class="exercise-details">
-                            • 5 min vélo léger<br>
-                            • Mobilité dynamique complète<br>
-                            • 3x5 box jumps progressifs<br>
-                            • 3x3 medicine ball slams
-                        </div>
+                        <h4>Squat : 5x3 reps à 90% 1RM</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>Tests Force Maximale (30 min)</h4>
-                        <div class="exercise-details">
-                            <strong>Squat :</strong><br>
-                            5@60% / 3@70% / 1@80% / 1@90% / 1@95% / 1@100%+<br>
-                            <strong>Développé Couché :</strong> Même protocole<br>
-                            <strong>Power Clean :</strong> 1RM technique parfaite
-                        </div>
+                        <h4>Développé couché : 5x3 reps à 90% 1RM</h4>
                     </div>
                     <div class="exercise-item">
-                        <h4>Plyométrie Légère (20 min)</h4>
-                        <div class="exercise-details">
-                            • Drop jumps : 4x3<br>
-                            • Bounds latéraux : 3x6/côté<br>
-                            • Medicine ball chest pass : 4x5<br>
-                            • Sprint départs arrêtés : 5x10m
-                        </div>
+                        <h4>Tractions lestées : 4x5 reps</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Gainage dynamique : 3x1min</h4>
                     </div>
                 </div>
-
                 <div class="day-card">
-                    <h3>MARDI - Simulation Match Totale</h3>
+                    <h3>MARDI – Simulation Match Totale</h3>
                     <div class="exercise-item">
-                        <h4>"Le Test de Vérité"</h4>
+                        <h4>Le Test de Vérité</h4>
                         <div class="exercise-details">
                             <strong>Structure : 4 x 20 minutes</strong><br>
                             Repos 5 min entre les quart-temps<br><br>
@@ -642,131 +595,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="day-card">
-                    <h3>MERCREDI - Récupération Active Premium</h3>
-                    <div class="exercise-item">
-                        <h4>Matin (45 min)</h4>
-                        <div class="exercise-details">
-                            • Piscine : 20 min nage variée<br>
-                            • Jacuzzi/Spa : 10 min<br>
-                            • Étirements dans l'eau : 15 min
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Après-midi - Technique Fine (60 min)</h4>
-                        <div class="exercise-details">
-                            <strong>Skills Individuels (30 min) :</strong><br>
-                            • 100 passes murales<br>
-                            • 50 drops, 50 coups de pied rasants<br>
-                            • Réceptions balles hautes<br><br>
-                            <strong>Situation Tactiques (20 min) :</strong><br>
-                            • Lecture défensive<br>
-                            • Placement en phase statique<br>
-                            • Communication spécifique position
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>JEUDI - Puissance Pure</h3>
-                    <div class="exercise-item">
-                        <h4>Principe : Qualité > Quantité</h4>
-                        <div class="exercise-details">
-                            <strong>Bloc Principal (35 min) :</strong><br>
-                            1. Squats Jump : 5x3 @30% (vitesse MAX)<br>
-                            2. Bench Press Balistique : 5x3 @40%<br>
-                            3. High Pull : 4x2 @60%<br><br>
-                            <strong>Sprints Techniques (20 min) :</strong><br>
-                            • 3x20m départ arrêté (repos 3 min)<br>
-                            • 3x30m départ lancé (repos 4 min)<br>
-                            • 2x40m avec changement direction
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>VENDREDI - Activation & Stratégie</h3>
-                    <div class="exercise-item">
-                        <h4>Matin : Activation Légère (30 min)</h4>
-                        <div class="exercise-details">
-                            • Yoga dynamique<br>
-                            • Circuit mobilité<br>
-                            • 5x50m accélérations progressives
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Après-midi : Briefing Tactique (45 min)</h4>
-                        <div class="exercise-details">
-                            • Analyse adversaire<br>
-                            • Répétition des combinaisons<br>
-                            • Visualisation des phases clés<br>
-                            • Communication : mots-clés équipe
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Finisher Neural (15 min)</h4>
-                        <div class="exercise-details">
-                            • 10x10m sprints (30s repos)<br>
-                            • Réactivité : échelle de rythme<br>
-                            • Coordination : jonglage + déplacements
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>WEEKEND - Performance Time</h3>
-                    <div class="exercise-item">
-                        <h4>Option A : Match Amical</h4>
-                        <div class="exercise-details">
-                            • Échauffement complet 45 min<br>
-                            • Focus : Appliquer les acquis<br>
-                            • Pas de pression résultat<br>
-                            • Auto-évaluation post-match
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>Option B : Simulation Complète</h4>
-                        <div class="exercise-details">
-                            • Conditions match réelles<br>
-                            • Arbitrage<br>
-                            • Vidéo pour analyse<br>
-                            • Debrief complet
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="week-container">
-            <div class="week-header" onclick="toggleWeek('week8')">
-                Semaine 8 : Programme Complet Domination Finale
-            </div>
-            <div id="week8" class="week-content">
-                <div class="day-card">
-                    <h3>LUNDI – Rappel Force + Vitesse</h3>
-                    <div class="exercise-item">
-                        <h4>Programme Léger</h4>
-                        <div class="exercise-details">
-                            • 3x2 @85% mouvements principaux<br>
-                            • Plyométrie légère<br>
-                            • Sprints courts
-                        </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Squats lestés ou sautés, pompes explosives, sprints sur place ou départ couché</div>
-                    </div>
-                </div>
-                <div class="day-card">
-                    <h3>MARDI – Match Tactique</h3>
-                    <div class="exercise-item">
-                        <h4>Simulation (60 min)</h4>
-                        <div class="exercise-details">
-                            • Intensité match<br>
-                            • Focus exécution parfaite<br>
-                            • Gestion de l'effort
-                        </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Circuit : 5 min shadow rugby (enchaînement passes, feintes, accélérations), 2 min repos, répéter 4x</div>
-                    </div>
-                </div>
                 <div class="day-card">
                     <h3>MERCREDI – Récupération Totale</h3>
                     <div class="exercise-item">
@@ -776,7 +604,6 @@
                             • Cryothérapie<br>
                             • Mental coaching
                         </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Auto-massage, bain froid, relaxation guidée</div>
                     </div>
                 </div>
                 <div class="day-card">
@@ -788,7 +615,6 @@
                             • Vitesse gestuelle<br>
                             • Activation neurale
                         </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Shadow rugby, drills d'appuis rapides, sprints courts</div>
                     </div>
                 </div>
                 <div class="day-card">
@@ -800,7 +626,6 @@
                             • Nutrition parfaite<br>
                             • Organisation logistique
                         </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Visualisation guidée, planification repas, check matériel</div>
                     </div>
                 </div>
                 <div class="day-card">
@@ -812,624 +637,141 @@
                             • Domination physique et mentale<br>
                             • Devenir le joueur indispensable
                         </div>
-                        <div class="exercise-details" style="color:#ffc312;"><b>Variante solo :</b> Test personnel : circuit complet (burpees, sprints, shadow rugby, skills), puis auto-évaluation et récupération</div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="tips-container">
-            <h3 style="color: #ff4757; margin-bottom: 15px;">🔑 Clés de Réussite Phase 3</h3>
-            <div class="tip-item">
-                <div class="tip-title">Gestion de la Fatigue</div>
-                <div>RPE quotidien (1-10). Si >7 pendant 2 jours → réduire volume</div>
+        <div class="week-container">
+            <div class="week-header" onclick="toggleWeek('week8')">
+                Semaine 8 : Affûtage & Pré-compétition
             </div>
-            <div class="tip-item">
-                <div class="tip-title">Indicateurs de Forme</div>
-                <div>✅ Sensations de légèreté ✅ Envie de jouer ✅ Sommeil qualité ✅ Explosivité top</div>
+            <div id="week8" class="week-content">
+                <div class="day-card">
+                    <h3>LUNDI – Mobilité & Activation</h3>
+                    <div class="exercise-item">
+                        <h4>Routine mobilité complète : 20 min</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Pliométrie légère : 3x6 sauts</h4>
+                    </div>
+                    <div class="exercise-item">
+                        <h4>Travail technique spécifique poste : 15 min</h4>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>MARDI – Simulation Match Légère</h3>
+                    <div class="exercise-item">
+                        <h4>Jeu réduit, intensité modérée : 2x20 min</h4>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>MERCREDI – Récupération Active</h3>
+                    <div class="exercise-item">
+                        <h4>Massage, étirements, cryothérapie</h4>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>JEUDI – Activation & Stratégie</h3>
+                    <div class="exercise-item">
+                        <h4>Répétition des combinaisons, visualisation</h4>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>VENDREDI – Préparation Mentale</h3>
+                    <div class="exercise-item">
+                        <h4>Relaxation, briefing, sommeil optimal</h4>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <h3>WEEKEND – MATCH !</h3>
+                    <div class="exercise-item">
+                        <h4>Donne tout sur le terrain !</h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
     <!-- NUTRITION -->
-    <div id="nutrition" class="content">
-        <div class="nutrition-card">
-            <h3>🍽️ Plan Alimentaire Quotidien</h3>
-            <div class="macro-grid">
-                <div class="macro-item">
-                    <div class="macro-value">6-7g</div>
-                    <div class="macro-label">Glucides/kg</div>
-                </div>
-                <div class="macro-item">
-                    <div class="macro-value">2.2g</div>
-                    <div class="macro-label">Protéines/kg</div>
-                </div>
-                <div class="macro-item">
-                    <div class="macro-value">1.2g</div>
-                    <div class="macro-label">Lipides/kg</div>
-                </div>
-            </div>
-        </div>
-
-        <div style="margin: 15px;">
-            <h3 style="color: #ff4757; margin-bottom: 15px;">Exemple Journée Type</h3>
-            
-            <div class="meal-item">
-                <div class="meal-time">6h30 - Petit Déjeuner</div>
-                <div>Avoine (100g) + Whey + Fruits rouges + Amandes</div>
-            </div>
-            
-            <div class="meal-item">
-                <div class="meal-time">10h - Post-Training</div>
-                <div>Shake (Whey + Banane + Miel)</div>
-            </div>
-            
-            <div class="meal-item">
-                <div class="meal-time">12h30 - Déjeuner</div>
-                <div>Poulet (200g) + Riz (150g) + Légumes + Huile olive</div>
-            </div>
-            
-            <div class="meal-item">
-                <div class="meal-time">16h - Collation</div>
-                <div>Pain complet + Beurre cacahuète + Pomme</div>
-            </div>
-            
-            <div class="meal-item">
-                <div class="meal-time">19h30 - Dîner</div>
-                <div>Saumon + Patates douces + Salade + Avocat</div>
-            </div>
-            
-            <div class="meal-item">
-                <div class="meal-time">22h - Coucher</div>
-                <div>Fromage blanc + Noix</div>
-            </div>
-        </div>
-
-        <div class="tips-container">
-            <h3 style="color: #00b894; margin-bottom: 15px;">💊 Supplémentation Stratégique</h3>
-            <div class="tip-item" style="border-left: 4px solid #00b894;">
-                <div class="tip-title">Créatine</div>
-                <div>5g/jour pour la puissance</div>
-            </div>
-            <div class="tip-item" style="border-left: 4px solid #00b894;">
-                <div class="tip-title">Oméga-3</div>
-                <div>2g EPA/DHA pour la récupération</div>
-            </div>
-            <div class="tip-item" style="border-left: 4px solid #00b894;">
-                <div class="tip-title">Vitamine D</div>
-                <div>2000 UI si peu d'exposition solaire</div>
-            </div>
-            <div class="tip-item" style="border-left: 4px solid #00b894;">
-                <div class="tip-title">Magnésium</div>
-                <div>400mg au coucher pour le sommeil</div>
-            </div>
-            <div class="tip-item" style="border-left: 4px solid #00b894;">
-                <div class="tip-title">Zinc</div>
-                <div>15mg pour récupération/testostérone</div>
-            </div>
-        </div>
-
-        <div style="margin: 15px;">
-            <h3 style="color: #ff4757; margin-bottom: 15px;">🏉 Nutrition Match</h3>
-            
-            <div class="day-card">
-                <h3>Veille de Match</h3>
-                <div class="exercise-details">
-                    • Augmenter les glucides complexes<br>
-                    • Réduire les fibres et graisses<br>
-                    • Hydratation importante (2-3L)<br>
-                    • Dernier repas riche en glucides 3h avant coucher
-                </div>
-            </div>
-            
-            <div class="day-card">
-                <h3>Jour de Match</h3>
-                <div class="exercise-details">
-                    <strong>3-4h avant :</strong> Pâtes/riz + blanc de poulet + sauce tomate<br>
-                    <strong>1h avant :</strong> Barre énergétique + banane<br>
-                    <strong>Pendant :</strong> Boisson isotonique<br>
-                    <strong>Après :</strong> Protéines + glucides (récupération)
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- BONUS SESSIONS -->
-    <div id="bonus" class="content">
+    <div id="nutrition" class="content" style="display:none;">
         <div class="phase-description">
-            <h3>🚀 SÉANCES BONUS</h3>
-            <p>Sessions supplémentaires pour accélérer ta progression</p>
-        </div>
-
-        <!-- SÉANCES SALLE BONUS -->
-        <div class="week-container">
-            <div class="week-header" onclick="toggleWeek('bonusGym')">
-                💪 Séances Salle Bonus (2x/semaine max)
-            </div>
-            <div id="bonusGym" class="week-content">
-                <div class="day-card">
-                    <h3>BONUS 1 - "Beast Mode" Power</h3>
-                    <div class="exercise-item">
-                        <h4>🔥 Échauffement Explosif (12 min)</h4>
-                        <div class="exercise-details">
-                            • 5 min vélo intensité croissante<br>
-                            • Bear crawl + crab walk : 2x20m<br>
-                            • Box jumps : 3x5 (hauteur progressive)<br>
-                            • Ballant bras + leg swings
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>💥 SUPERSET DOMINATION</h4>
-                        <div class="exercise-details">
-                            <strong>A1. Squat Explosif</strong> : 5x4 @80% (pause 2s en bas)<br>
-                            <strong>A2. Box Jump</strong> : 5x4 (hauteur max)<br>
-                            Repos 3 min entre supersets<br><br>
-                            
-                            <strong>B1. Développé Incliné</strong> : 4x6 @75%<br>
-                            <strong>B2. Clap Push-ups</strong> : 4x max<br>
-                            Repos 2:30 entre supersets<br><br>
-                            
-                            <strong>C1. Romanian Deadlift</strong> : 4x6 @80%<br>
-                            <strong>C2. Broad Jumps</strong> : 4x3 (distance max)<br>
-                            Repos 2:30 entre supersets
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>⚡ Finisher "Rugby Warrior"</h4>
-                        <div class="exercise-details">
-                            <strong>5 tours pour le temps :</strong><br>
-                            • 10 Thrusters (barre 40kg)<br>
-                            • 15 Box jumps<br>
-                            • 20 Burpees<br>
-                            • 25 Mountain climbers<br>
-                            <strong>Objectif : < 18 minutes</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>BONUS 2 - "Gladiator" Force</h3>
-                    <div class="exercise-item">
-                        <h4>⚡ Activation Neuromusculaire (15 min)</h4>
-                        <div class="exercise-details">
-                            • Rameur 5 min (intensité modérée)<br>
-                            • Medicine ball slams : 3x8<br>
-                            • Lateral bounds : 3x6/côté<br>
-                            • Arm circles + hip circles<br>
-                            • Sprint sur place 3x15s
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🏋️ COMPLEXE OLYMPIQUE</h4>
-                        <div class="exercise-details">
-                            <strong>Complexe 1 (5 tours) :</strong><br>
-                            • Power Clean : 3 reps @70%<br>
-                            • Front Squat : 5 reps<br>
-                            • Push Press : 5 reps<br>
-                            • Back Squat : 8 reps<br>
-                            Repos 3 min entre tours<br><br>
-                            
-                            <strong>Complexe 2 (4 tours) :</strong><br>
-                            • Deadlift : 5 reps @80%<br>
-                            • Bent Row : 8 reps<br>
-                            • Hang Clean : 3 reps<br>
-                            • Romanian DL : 6 reps<br>
-                            Repos 2:30 entre tours
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🔥 Circuit "Ruck Domination"</h4>
-                        <div class="exercise-details">
-                            <strong>4 tours - 45s travail / 15s repos :</strong><br>
-                            • Sled push (charge lourde)<br>
-                            • Battle ropes<br>
-                            • Farmer's walk<br>
-                            • Tire flips (ou deadlifts rapides)<br>
-                            • Plank to push-up<br>
-                            • Bear crawl<br>
-                            Repos 2 min entre tours
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SÉANCES COURSE SKILLS -->
-        <div class="week-container">
-            <div class="week-header" onclick="toggleWeek('bonusRun')">
-                🏃‍♂️ Course Skills & Sprint (2 séances)
-            </div>
-            <div id="bonusRun" class="week-content">
-                <div class="day-card">
-                    <h3>COURSE 1 - "Speed & Skills Fusion"</h3>
-                    <div class="exercise-item">
-                        <h4>🏃 Échauffement Dynamique (15 min)</h4>
-                        <div class="exercise-details">
-                            • Footing léger 800m<br>
-                            • Montées de genoux : 2x20m<br>
-                            • Talons fesses : 2x20m<br>
-                            • Pas chassés : 2x20m (chaque côté)<br>
-                            • Foulées bondissantes : 2x30m<br>
-                            • Accélérations progressives : 3x50m
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>⚡ BLOC VITESSE PURE</h4>
-                        <div class="exercise-details">
-                            <strong>Sprints départs variés :</strong><br>
-                            • 3x20m départ couché (ventre)<br>
-                            • 3x20m départ assis<br>
-                            • 3x30m départ 3 points<br>
-                            • 3x40m départ debout<br>
-                            Repos 2-3 min entre sprints<br>
-                            <em>Focus : explosivité premiers pas</em>
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🏉 SKILLS EN MOUVEMENT</h4>
-                        <div class="exercise-details">
-                            <strong>Circuit 1 (4 tours) :</strong><br>
-                            • Sprint 20m + passe murales x10<br>
-                            • Course latérale 15m + réception balle haute<br>
-                            • Sprint arrière 10m + pivot + sprint avant 15m<br>
-                            • Slalom plots + drop kick<br>
-                            Repos 90s entre tours<br><br>
-                            
-                            <strong>Circuit 2 (3 tours) :</strong><br>
-                            • 30m avec ballon + passe au mur tous les 5m<br>
-                            • Course avec changements direction (plots)<br>
-                            • Sprint final 20m + catch balle haute<br>
-                            Repos 2 min entre tours
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🎯 Jeu "Rugby Target"</h4>
-                        <div class="exercise-details">
-                            <strong>Setup :</strong> 5 cibles à différentes distances<br>
-                            • Sprint vers cible 1 → Drop kick<br>
-                            • Course latérale vers cible 2 → Passe précision<br>
-                            • Sprint vers cible 3 → Plaquage sac<br>
-                            • Reculade vers cible 4 → Coup de pied rasant<br>
-                            • Sprint final cible 5 → Réception plongeante<br>
-                            <strong>Défi :</strong> 5/5 cibles en < 3 min
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🏃 Retour au calme (10 min)</h4>
-                        <div class="exercise-details">
-                            • Footing 5 min allure tranquille<br>
-                            • Étirements dynamiques<br>
-                            • Respiration profonde
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>COURSE 2 - "Game Simulation Sprint"</h3>
-                    <div class="exercise-item">
-                        <h4>🔥 Mise en train "Match Ready" (20 min)</h4>
-                        <div class="exercise-details">
-                            • Footing 1000m rythme match<br>
-                            • Éducatifs : 8 x 15m (variés)<br>
-                            • Gammes athlétiques<br>
-                            • Plyométrie : 3x5 bonds + 3x5 sauts latéraux<br>
-                            • Sprints progressifs : 4 x 30m (50→70→85→95%)
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>⚡ SPRINTS RÉPÉTÉS "MATCH STYLE"</h4>
-                        <div class="exercise-details">
-                            <strong>Série 1 - Power Burst :</strong><br>
-                            • 6x15m sprints max (repos 45s)<br>
-                            • Focus : accélération explosive<br><br>
-                            
-                            <strong>Série 2 - Endurance Speed :</strong><br>
-                            • 5x40m @90% (repos 90s)<br>
-                            • Maintenir la vitesse sur chaque sprint<br><br>
-                            
-                            <strong>Série 3 - Rugby Realistic :</strong><br>
-                            • 8x25m avec changement direction<br>
-                            • Setup : 15m sprint + virage + 10m sprint<br>
-                            • Repos 60s entre répétitions<br>
-                            Repos 4 min entre séries
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🏉 SIMULATION PHASES DE JEU</h4>
-                        <div class="exercise-details">
-                            <strong>"Multi-Phase Attack" (3 tours) :</strong><br>
-                            • Phase 1 : Sprint 30m + ruck (5s au sol)<br>
-                            • Phase 2 : Course latérale 20m + maul simulation<br>
-                            • Phase 3 : Sprint arrière 15m + pivot + percée 25m<br>
-                            • Phase 4 : Course avec ballon 40m + passe finale<br>
-                            Repos 3 min entre tours<br>
-                            <em>Objectif : maintenir intensité sur les 4 phases</em>
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>💀 Challenge "Last Man Standing"</h4>
-                        <div class="exercise-details">
-                            <strong>Élimination progressive :</strong><br>
-                            • Tour 1 : 8x30m sprints (éliminer les 2 derniers)<br>
-                            • Tour 2 : 6x25m sprints (éliminer les 2 derniers)<br>
-                            • Finale : 4x20m sprints (le dernier gagne)<br>
-                            <em>Temps de repos diminue : 60s→45s→30s</em><br>
-                            <strong>Prize : Tu es un warrior ! 🏆</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SÉANCES CARDIO -->
-        <div class="week-container">
-            <div class="week-header" onclick="toggleWeek('bonusCardio')">
-                ❤️ Cardio Spécialisé (2 séances)
-            </div>
-            <div id="bonusCardio" class="week-content">
-                <div class="day-card">
-                    <h3>CARDIO 1 - "Endurance Warrior"</h3>
-                    <div class="exercise-item">
-                        <h4>🏃 Échauffement Cardio (10 min)</h4>
-                        <div class="exercise-details">
-                            • 5 min vélo ou course légère<br>
-                            • Mobilité articulaire<br>
-                            • 3 accélérations 50m
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>💪 BLOC PRINCIPAL "Tempo Run"</h4>
-                        <div class="exercise-details">
-                            <strong>Structure :</strong><br>
-                            • 15 min course @75% VMA (rythme soutenu)<br>
-                            • 3 min récupération active<br>
-                            • 10 min course @80% VMA<br>
-                            • 2 min récupération active<br>
-                            • 5 min course @85% VMA<br><br>
-                            
-                            <strong>Alternative vélo :</strong><br>
-                            • 20 min @70% FCmax<br>
-                            • 15 min @75% FCmax<br>
-                            • 10 min @80% FCmax<br>
-                            (2 min récup entre blocs)
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🔥 Finisher "Rugby Cardio"</h4>
-                        <div class="exercise-details">
-                            <strong>Circuit 15 min :</strong><br>
-                            • 1 min mountain climbers<br>
-                            • 1 min jumping jacks<br>
-                            • 1 min burpees<br>
-                            • 1 min high knees<br>
-                            • 1 min repos<br>
-                            <strong>Répéter 3 fois</strong><br>
-                            Focus : maintenir l'intensité
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🧘 Récupération (10 min)</h4>
-                        <div class="exercise-details">
-                            • Marche active 5 min<br>
-                            • Étirements légers<br>
-                            • Respiration contrôlée
-                        </div>
-                    </div>
-                </div>
-
-                <div class="day-card">
-                    <h3>CARDIO 2 - "HIIT Destroyer"</h3>
-                    <div class="exercise-item">
-                        <h4>⚡ Warm-up Explosif (12 min)</h4>
-                        <div class="exercise-details">
-                            • Rameur 5 min intensité progressive<br>
-                            • Jumping jacks : 2x30s<br>
-                            • Butt kickers : 2x20s<br>
-                            • Arm swings + leg swings<br>
-                            • 3 sprints 20m @70%
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>💥 HIIT "Rugby Beast Mode"</h4>
-                        <div class="exercise-details">
-                            <strong>Round 1 - Power HIIT :</strong><br>
-                            8 tours : 20s all-out / 40s repos<br>
-                            • Burpees<br>
-                            • Sprint sur place<br>
-                            • Jump squats<br>
-                            • Mountain climbers<br>
-                            (Répéter 2x chaque exercice)<br><br>
-                            
-                            <strong>Récupération : 4 minutes</strong><br><br>
-                            
-                            <strong>Round 2 - Lactique HIIT :</strong><br>
-                            6 tours : 40s travail / 20s repos<br>
-                            • Thrusters (léger)<br>
-                            • Renegade rows<br>
-                            • Box jumps<br>
-                            • Russian twists<br>
-                            • Bear crawl<br>
-                            • Plank jacks
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>🎯 Challenge "Tabata Inferno"</h4>
-                        <div class="exercise-details">
-                            <strong>4 rounds Tabata (20s/10s x 8) :</strong><br>
-                            <strong>Round 1 :</strong> Burpees<br>
-                            <strong>Round 2 :</strong> Jump squats<br>
-                            <strong>Round 3 :</strong> Mountain climbers<br>
-                            <strong>Round 4 :</strong> High knees<br>
-                            <em>1 min repos entre rounds</em><br><br>
-                            
-                            <strong>Objectif :</strong> Maintenir >15 reps/round<br>
-                            <strong>Level Beast :</strong> >20 reps/round
-                        </div>
-                    </div>
-                    <div class="exercise-item">
-                        <h4>❄️ Cool Down Premium (12 min)</h4>
-                        <div class="exercise-details">
-                            • Marche 5 min (FC<120)<br>
-                            • Étirements complets 7 min<br>
-                            • Respiration 4-7-8 (4 cycles)<br>
-                            <em>Hydratation ++ obligatoire</em>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="tips-container">
-            <h3 style="color: #ff4757; margin-bottom: 15px;">📋 Guide d'Utilisation Séances Bonus</h3>
-            <div class="tip-item">
-                <div class="tip-title">🗓️ Fréquence Recommandée</div>
-                <div>• Salle Bonus : 1-2x/semaine MAX (jamais 2 jours consécutifs)<br>• Course Skills : 1x/semaine en complément<br>• Cardio : 1x/semaine selon besoins</div>
-            </div>
-            <div class="tip-item">
-                <div class="tip-title">⚡ Quand les Utiliser</div>
-                <div>• Semaines "motivation boost" <br>• Après 2-3 jours de repos<br>• Quand tu te sens en super forme<br>• Jamais en période de fatigue</div>
-            </div>
-            <div class="tip-item">
-                <div class="tip-title">🎯 Objectifs par Séance</div>
-                <div>• Salle Bonus : Force/Puissance explosive<br>• Course Skills : Technique + vitesse rugby<br>• Cardio : Système cardiovasculaire</div>
-            </div>
-            <div class="tip-item">
-                <div class="tip-title">⚠️ Règles de Sécurité</div>
-                <div>• Échauffement non négociable<br>• Technique avant performance<br>• Stop si douleur<br>• Récupération extra obligatoire après</div>
-            </div>
+            <h3>Nutrition & Récupération</h3>
+            <ul>
+                <li>Hydratation : 2L d'eau/jour minimum</li>
+                <li>Protéines à chaque repas (œufs, poulet, poisson, légumineuses…)</li>
+                <li>Légumes à volonté, féculents complets</li>
+                <li>Collation post-entraînement : banane + oléagineux</li>
+                <li>Sommeil : 8h/nuit, coucher régulier</li>
+                <li>Étirements/mobilité après chaque séance</li>
+            </ul>
         </div>
     </div>
-
+    <!-- BONUS SESSIONS -->
+    <div id="bonus" class="content" style="display:none;">
+        <div class="phase-description">
+            <h3>Bonus & Conseils</h3>
+            <ul>
+                <li>Travail technique ballon (passes, jongles, lancers)</li>
+                <li>Vidéo analyse (regarder des matchs, se filmer)</li>
+                <li>Renforcement gainage lombaires</li>
+                <li>Respiration et cohérence cardiaque</li>
+                <li>Lecture : "Le Mental des Champions"</li>
+            </ul>
+        </div>
+    </div>
     <!-- TIMER -->
-    <div id="timer" class="content">
-        <div class="timer-section">
-            <h3 style="margin-bottom: 20px;">⏱️ Timer d'Entraînement</h3>
-            <div class="timer" id="timerDisplay">00:00</div>
-            <div class="timer-controls">
-                <button class="btn" onclick="startTimer()">▶️ Start</button>
-                <button class="btn" onclick="pauseTimer()">⏸️ Pause</button>
-                <button class="btn" onclick="resetTimer()">🔄 Reset</button>
+    <div id="timer" class="content" style="display:none;">
+        <div class="phase-description">
+            <h3>Timer & HIIT</h3>
+            <div style="margin-bottom:10px;">
+                <span id="hiitStatus"></span>
             </div>
-            
-            <div style="margin-top: 30px;">
-                <h4 style="color: #ffc312; margin-bottom: 15px;">⚡ Timers Prédéfinis</h4>
-                <div class="timer-controls">
-                    <button class="btn secondary" onclick="setTimer(30)">30s</button>
-                    <button class="btn secondary" onclick="setTimer(45)">45s</button>
-                    <button class="btn secondary" onclick="setTimer(60)">1 min</button>
-                    <button class="btn secondary" onclick="setTimer(90)">1:30</button>
-                    <button class="btn secondary" onclick="setTimer(120)">2 min</button>
-                    <button class="btn secondary" onclick="setTimer(180)">3 min</button>
-                    <button class="btn secondary" onclick="setTimer(300)">5 min</button>
-                </div>
+            <div style="display:flex;gap:10px;align-items:center;justify-content:center;">
+                <input id="workTime" type="number" min="10" max="600" value="30" style="width:60px;"> Travail (s)
+                <input id="restTime" type="number" min="5" max="600" value="30" style="width:60px;"> Repos (s)
+                <input id="rounds" type="number" min="1" max="50" value="10" style="width:60px;"> Rounds
             </div>
-
-            <div style="margin-top: 30px;">
-                <h4 style="color: #ffc312; margin-bottom: 15px;">🔥 HIIT Timer</h4>
-                <div>
-                    <label style="display: block; margin: 10px 0;">
-                        Travail (sec): <input type="number" id="workTime" value="30" style="width: 60px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px;">
-                    </label>
-                    <label style="display: block; margin: 10px 0;">
-                        Repos (sec): <input type="number" id="restTime" value="30" style="width: 60px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px;">
-                    </label>
-                    <label style="display: block; margin: 10px 0;">
-                        Rounds: <input type="number" id="rounds" value="8" style="width: 60px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px;">
-                    </label>
-                </div>
-                <button class="btn" onclick="startHIIT()">🚀 Start HIIT</button>
-                <div id="hiitStatus" style="margin-top: 15px; font-weight: bold;"></div>
+            <div style="margin:18px 0;">
+                <button onclick="startHIIT()">Démarrer HIIT</button>
+                <button onclick="resetTimer()">Reset</button>
             </div>
+            <div id="timerDisplay" style="font-size:2.5rem;font-weight:700;margin:18px 0;">00:00</div>
         </div>
     </div>
-
     <!-- PROGRESS -->
-    <div id="progress" class="content">
-        <div class="progress-section">
-            <h2 style="color: #ff4757; margin-bottom: 20px;">📊 Suivi de Progression</h2>
-            
-            <div class="progress-card">
-                <h3>Progression Générale</h3>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0;">
-                    <span>Programme Complet</span>
-                    <span style="color: #ff4757; font-weight: bold;" id="overallProgress">0%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="overallProgressBar" style="width: 0%"></div>
-                </div>
+    <div id="progress" class="content" style="display:none;">
+        <div class="phase-description">
+            <h3>Suivi & Progrès</h3>
+            <div style="margin-bottom:10px;">Coche tes objectifs atteints :</div>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                <div class="checkmark" onclick="toggleGoal(this)">Squat 1.5x poids du corps</div>
+                <div class="checkmark" onclick="toggleGoal(this)">Sprint 10m &lt; 1"80</div>
+                <div class="checkmark" onclick="toggleGoal(this)">Pompes 40 reps</div>
+                <div class="checkmark" onclick="toggleGoal(this)">Tractions 12 reps</div>
+                <div class="checkmark" onclick="toggleGoal(this)">Gainage 3 min</div>
+                <div class="checkmark" onclick="toggleGoal(this)">HIIT 20 rounds</div>
             </div>
-
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="completedWorkouts">0</div>
-                    <div class="stat-label">Séances Terminées</div>
+            <div style="margin:18px 0;">
+                <div style="background:#232526;border-radius:8px;height:18px;width:100%;overflow:hidden;">
+                    <div id="overallProgressBar" style="background:#ff4757;height:100%;width:0%;transition:width 0.3s;"></div>
                 </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="currentWeek">1</div>
-                    <div class="stat-label">Semaine Actuelle</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="totalWorkouts">56</div>
-                    <div class="stat-label">Séances Totales</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="streakDays">0</div>
-                    <div class="stat-label">Jours Consécutifs</div>
-                </div>
+                <div id="overallProgress" style="text-align:right;font-size:1.1rem;font-weight:700;margin-top:4px;">0%</div>
             </div>
-
-            <div class="progress-card">
-                <h3>Tests de Performance</h3>
-                <div style="margin: 15px 0;">
-                    <label style="display: block; margin: 10px 0; color: #ffc312;">
-                        Sprint 10m (sec):
-                        <input type="number" step="0.01" id="sprint10m" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
-                    </label>
-                    <label style="display: block; margin: 10px 0; color: #ffc312;">
-                        Squat 1RM (kg):
-                        <input type="number" id="squatMax" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
-                    </label>
-                    <label style="display: block; margin: 10px 0; color: #ffc312;">
-                        Développé Couché 1RM (kg):
-                        <input type="number" id="benchMax" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
-                    </label>
-                    <label style="display: block; margin: 10px 0; color: #ffc312;">
-                        Détente Verticale (cm):
-                        <input type="number" id="verticalJump" style="width: 80px; padding: 5px; background: #333; color: white; border: 1px solid #666; border-radius: 5px; margin-left: 10px;">
-                    </label>
-                </div>
-                <button class="btn" onclick="savePerformance()">💾 Sauvegarder</button>
-            </div>
-
-            <div class="progress-card">
-                <h3>Objectifs Semaine</h3>
-                <div id="weeklyGoals">
-                    <div style="display: flex; align-items: center; margin: 10px 0;">
-                        <span class="checkmark" onclick="toggleGoal(this)"></span>
-                        <span>Compléter toutes les séances</span>
-                    </div>
-                    <div style="display: flex; align-items: center; margin: 10px 0;">
-                        <span class="checkmark" onclick="toggleGoal(this)"></span>
-                        <span>Respecter la nutrition</span>
-                    </div>
-                    <div style="display: flex; align-items: center; margin: 10px 0;">
-                        <span class="checkmark" onclick="toggleGoal(this)"></span>
-                        <span>8h de sommeil minimum</span>
-                    </div>
-                    <div style="display: flex; align-items: center; margin: 10px 0;">
-                        <span class="checkmark" onclick="toggleGoal(this)"></span>
-                        <span>Hydratation 3L/jour</span>
-                    </div>
-                </div>
+            <div style="margin-top:18px;">
+                <h4>Enregistre tes perfs :</h4>
+                <input id="sprint10m" type="number" placeholder="Sprint 10m (s)" style="width:120px;margin:4px;">
+                <input id="squatMax" type="number" placeholder="Squat max (kg)" style="width:120px;margin:4px;">
+                <input id="benchMax" type="number" placeholder="Développé couché max (kg)" style="width:120px;margin:4px;">
+                <input id="verticalJump" type="number" placeholder="Saut vertical (cm)" style="width:120px;margin:4px;">
+                <button onclick="savePerformance()" style="margin-left:10px;">Sauvegarder</button>
             </div>
         </div>
     </div>
 
-    <div class="quick-access" onclick="quickTimer()">
+    <div class="quick-access" style="display:none;" onclick="quickTimer()">
         ⏱️
     </div>
 
-    <div class="bottom-nav">
+    <div class="bottom-nav" style="display:none;">
         <div class="nav-item active" onclick="showPhase('phase1')">
             <div class="nav-icon">💪</div>
             <div class="nav-label">Phase 1</div>
